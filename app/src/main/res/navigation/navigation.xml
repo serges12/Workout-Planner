@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation"
+    app:startDestination="@id/currentWorkout">
+
+    <fragment
+        android:id="@+id/currentWorkout"
+        android:name="com.example.workoutplanner.CurrentWorkout"
+        android:label="CurrentWorkout" />
+    <fragment
+        android:id="@+id/history"
+        android:name="com.example.workoutplanner.History"
+        android:label="History" />
+    <fragment
+        android:id="@+id/workouts"
+        android:name="com.example.workoutplanner.Workouts"
+        android:label="Workouts" />
+    <fragment
+        android:id="@+id/settings"
+        android:name="com.example.workoutplanner.Settings"
+        android:label="Settings" />
+</navigation>
