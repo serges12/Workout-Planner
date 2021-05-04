@@ -13,10 +13,10 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/settings_reset">
-
+    <PreferenceCategory app:title="@string/account_settings">
 
 
     </PreferenceCategory>
+
 
 </PreferenceScreen>

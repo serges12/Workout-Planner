@@ -6,6 +6,7 @@ import android.view.Gravity
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
@@ -20,7 +21,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         drawerLayout = binding.drawerLayout
-
 
         val navController = this.findNavController(R.id.myNavHostFragment)
         NavigationUI.setupActionBarWithNavController(this, navController,drawerLayout)
@@ -40,27 +40,29 @@ class MainActivity : AppCompatActivity() {
             super.onBackPressed()
         }
     }
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle item selection
-        return when (item.itemId) {
-            R.id.currentWorkout -> {
-                CurrentWorkout()
-                true
-            }
-            R.id.history -> {
-                History()
-                true
-            }
-            R.id.settings -> {
-                Settings()
-                true
-            }
-            R.id.workouts -> {
-                Workouts()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
+    // wtf
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        // Handle item selection
+//        return when (item.itemId) {
+//            R.id.currentWorkout -> {
+//                CurrentWorkout()
+//                true
+//            }
+//            R.id.history -> {
+//                History()
+//                true
+//            }
+//            R.id.settings -> {
+//                Settings()
+//                true
+//            }
+////            R.id.workouts -> {
+////                Toast.makeText(this,"Not Working Yet", Toast.LENGTH_LONG).show()
+//////                Workouts()
+////                true
+////            }
+//            else -> super.onOptionsItemSelected(item)
+//        }
+//    }
 
 }

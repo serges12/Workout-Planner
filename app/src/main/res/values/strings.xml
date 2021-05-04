@@ -3,11 +3,12 @@
 
     <!-- Preference Titles -->
     <string name="notifications_header">Notifications</string>
-    <string name="share_app_header">Share Workout Planner</string>
-    <string name="reset_data_header">Reset Your Data</string>
     <!-- Notifications Preferences -->
     <string name="all_notifications">All Notifications</string>
-    <!--  Reset Data Preferences  -->
-    <string name="settings_reset">Reset Settings to Default</string>
-    <string name="data_reset">Reset Data</string>
+    <!--  Accouunt Settings Preferences  -->
+    <string name="account_settings">Account Settings</string>
+
+
+    <string name="title_activity_login">LoginActivity</string>
+    <!-- TODO: Remove or change this placeholder text -->
 </resources>
