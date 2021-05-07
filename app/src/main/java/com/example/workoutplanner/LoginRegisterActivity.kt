@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.example.workoutplanner.databinding.ActivityLoginRegisterBinding
 
-class LoginRegister : AppCompatActivity() {
+class LoginRegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginRegisterBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

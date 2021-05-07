@@ -21,6 +21,7 @@ class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(
 
     override fun getItemCount(): Int {
         return workoutList.size
+
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

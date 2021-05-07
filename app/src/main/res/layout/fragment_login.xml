@@ -42,8 +42,10 @@
                 android:singleLine="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.486" />
 
             <EditText
                 android:id="@+id/editTextTextPassword"
@@ -59,7 +61,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress" />
 
             <Button
-                android:id="@+id/loginButton"
+                android:id="@+id/LoginButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
@@ -70,16 +72,17 @@
                 app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
 
             <TextView
-                android:id="@+id/goToLogin"
+                android:id="@+id/goToRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
                 android:clickable="true"
                 android:cursorVisible="true"
-                android:text="Create a new account"
+                android:text="Don't have an account? Click to Register"
                 android:textColor="#673AB7"
-                app:layout_constraintBottom_toTopOf="@+id/editTextTextEmailAddress"
-                app:layout_constraintStart_toStartOf="@+id/editTextTextEmailAddress" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
