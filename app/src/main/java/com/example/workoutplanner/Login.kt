@@ -32,7 +32,7 @@ class Login : Fragment() {
             when{
                 //trim{it<=' '} is a lambda function that removes whitespaces at the start and end
                 // if email box is empty, make toast asking for email
-                TextUtils.isEmpty(binding.editTextTextEmailAddress.text.toString().trim{it<=' '})->{
+                TextUtils.isEmpty(binding.emailInputText.text.toString().trim{it<=' '})->{
                     Toast.makeText(
                         requireActivity(),
                         "Please Enter email.",
@@ -41,7 +41,7 @@ class Login : Fragment() {
                 }
 
                 //if password box empty, make toast asking for password
-                TextUtils.isEmpty(binding.editTextTextPassword.text.toString().trim{it<=' '})->{
+                TextUtils.isEmpty(binding.passwordInputText.text.toString().trim{it<=' '})->{
                     Toast.makeText(
                         requireActivity(),
                         "Please Enter password.",
@@ -51,8 +51,8 @@ class Login : Fragment() {
 
                 //if both are not empty
                 else->{
-                    val email: String = binding.editTextTextEmailAddress.text.toString().trim{it <=' '}
-                    val password: String = binding.editTextTextPassword.text.toString().trim{it <=' '}
+                    val email: String = binding.emailInputText.text.toString().trim{it <=' '}
+                    val password: String = binding.passwordInputText.text.toString().trim{it <=' '}
                     //create an instance of firebase and register a user with email and password
                     FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener{ task ->

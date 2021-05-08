@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navigation"
-    app:startDestination="@id/currentWorkout">
+    app:startDestination="@id/mainActivity">
 
     <fragment
         android:id="@+id/currentWorkout"
@@ -20,4 +20,8 @@
         android:id="@+id/settings"
         android:name="com.example.workoutplanner.Settings"
         android:label="Settings" />
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.workoutplanner.MainActivity"
+        android:label="MainActivity" />
 </navigation>

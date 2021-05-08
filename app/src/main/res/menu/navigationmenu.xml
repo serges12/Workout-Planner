@@ -3,16 +3,23 @@
 
     <item
         android:id="@+id/currentWorkout"
-        android:title="Current Workout" />
+        android:enabled="true"
+        android:title="Current"
+        android:icon="@drawable/ic_home_icon_png"/>
     <item
         android:id="@+id/workouts"
-        android:title="Workouts"
-        android:visible="true" />
+        android:enabled="true"
+        android:icon="@drawable/ic_workouts_icon_png"
+        android:title="Workouts" />
     <item
         android:id="@+id/history"
-        android:title="History" />
+        android:title="History"
+        android:enabled="true"
+        android:icon="@drawable/ic_history_icon_jpg"/>
     <item
         android:id="@+id/settings"
-        android:title="Settings" />
+        android:title="Settings"
+        android:enabled="true"
+        android:icon="@drawable/ic_settings_icon_jpg"/>
 
 </menu>
