@@ -31,6 +31,7 @@ class Settings : Fragment() {
                     dialogInterface, i ->
                     //Handle Logout here
 
+                    
                     val intent = Intent(activity,LoginRegisterActivity::class.java)
                     startActivity(intent)
                     activity?.finish()

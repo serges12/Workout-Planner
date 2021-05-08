@@ -37,7 +37,7 @@ class Register : Fragment() {
                 TextUtils.isEmpty(binding.emailInputText.text.toString().trim{it<=' '})->{
                     Toast.makeText(
                         requireActivity(),
-                        "Please Enter email.",
+                        "Please Enter An Email.",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -46,7 +46,7 @@ class Register : Fragment() {
                 TextUtils.isEmpty(binding.passwordInputText.text.toString().trim{it<=' '})->{
                     Toast.makeText(
                         requireActivity(),
-                        "Please Enter password.",
+                        "Please Enter A password.",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
