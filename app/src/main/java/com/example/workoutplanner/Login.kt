@@ -73,7 +73,7 @@ class Login : Fragment() {
                                 Toast.makeText(
                                     requireActivity(),
                                     task.exception!!.message.toString(),
-                                    Toast.LENGTH_SHORT
+                                    Toast.LENGTH_LONG
                                 ).show()
                             }
                         }
