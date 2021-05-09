@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.example.workoutplanner.databinding.FragmentSettingsBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.auth.FirebaseAuth
 
 class Settings : Fragment() {
     override fun onCreateView(
@@ -30,7 +31,7 @@ class Settings : Fragment() {
                 .setPositiveButton("Yes"){
                     dialogInterface, i ->
                     //Handle Logout here
-
+                    FirebaseAuth.getInstance().signOut()
                     
                     val intent = Intent(activity,LoginRegisterActivity::class.java)
                     startActivity(intent)

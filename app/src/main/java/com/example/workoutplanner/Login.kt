@@ -23,6 +23,13 @@ class Login : Fragment() {
                               savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
 
+        //if user is already logged in, go straight to main activity
+        if (FirebaseAuth.getInstance().currentUser != null){
+            val intent = Intent(activity,MainActivity::class.java)
+            startActivity(intent)
+            activity?.finish()
+        }
+
         binding.goToRegister.setOnClickListener{view :View ->
             Navigation.findNavController(view).navigate(R.id.action_login_to_register)
         }
