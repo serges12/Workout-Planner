@@ -7,9 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutplanner.databinding.FragmentWorkoutsBinding
-import kotlinx.android.synthetic.main.fragment_workouts.*
 
 class Workouts : Fragment() {
     override fun onCreateView(
@@ -20,19 +21,16 @@ class Workouts : Fragment() {
         binding.addWorkoutButton.setOnClickListener{
             Toast.makeText(context,"Create Workout",Toast.LENGTH_SHORT).show()
         }
-        val adapter = RecyclerViewAdapter()
+        val adapter = WorkoutRecyclerViewAdapter()
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = adapter
-        adapter.onItemClick = {
-            Toast.makeText(context, it.workoutID.toString(),Toast.LENGTH_LONG).show()
-        }
         populateCards(adapter)
         return binding.root
     }
 
 
     // Testing purposes
-    private fun populateCards(adapter: RecyclerViewAdapter){
+    private fun populateCards(adapter: WorkoutRecyclerViewAdapter){
         val workoutList: MutableList<Workout> = mutableListOf()
         for(i in 1..30){
             workoutList.add(Workout("Name $i",i,"https://i.pinimg.com/originals/96/20/08/962008bd0eb249e4d575363114cec835.jpg"))
