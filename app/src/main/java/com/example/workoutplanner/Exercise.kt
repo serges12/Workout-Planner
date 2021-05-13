@@ -20,20 +20,17 @@ class Exercise : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding : FragmentExerciseBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_exercise,container,false)
-        val exerciseID = ExerciseArgs.fromBundle(requireArguments()).exerciseID
-        db.collection("exercises").document(exerciseID)
-            .get()
-            .addOnSuccessListener {
-                val exerciseRef = it.toObject(ExerciseModel::class.java)
-                (activity as AppCompatActivity).supportActionBar?.title = exerciseRef?.name
-                binding.exerciseDescriptionText.setText(exerciseRef?.description)
-                //here the paramter "it" is an ExerciseModel Objects, and you can access its attributes
-                //see ExerciseModel.kt to check available attributes (name, description, videoLink, imageLink, bodyPart)
-                binding.bodyPartText.text = exerciseRef?.bodyPart.toString()
-                binding.imageView.load(exerciseRef?.imageLink)
-                binding.exerciseDescriptionText.movementMethod = ScrollingMovementMethod()
-                //do work here
-            }
+        val exercise: ExerciseModel = ExerciseArgs.fromBundle(requireArguments()).exercise
+        //now we have access to the exercise
+        //see ExerciseModel.kt to check available attributes (name, description, videoLink, imageLink, bodyPart)
+
+        (activity as AppCompatActivity).supportActionBar?.title = exercise?.name
+        binding.exerciseDescriptionText.setText(exercise?.description)
+
+        binding.bodyPartText.text = exercise?.bodyPart.toString()
+        binding.imageView.load(exercise?.imageLink)
+        binding.exerciseDescriptionText.movementMethod = ScrollingMovementMethod()
+
         return binding.root
     }
 

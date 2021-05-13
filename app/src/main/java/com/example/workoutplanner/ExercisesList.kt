@@ -38,7 +38,7 @@ class ExercisesList : Fragment() {
         recyclerView.adapter = exerciseAdapter
 
         exerciseAdapter!!.onItemClick = {
-            view?.findNavController()?.navigate(ExercisesListDirections.actionExercisesListToExercise(it.id))
+            view?.findNavController()?.navigate(ExercisesListDirections.actionExercisesListToExercise((it.toObject(ExerciseModel::class.java))!!))
         }
 
         return binding.root

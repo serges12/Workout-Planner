@@ -25,8 +25,8 @@
         android:name="com.example.workoutplanner.Exercise"
         android:label="Exercise" >
         <argument
-            android:name="exerciseID"
-            app:argType="string" />
+            android:name="exercise"
+            app:argType="com.example.workoutplanner.ExerciseModel" />
     </fragment>
     <fragment
         android:id="@+id/exercisesList"
