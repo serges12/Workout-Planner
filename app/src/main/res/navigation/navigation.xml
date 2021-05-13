@@ -23,7 +23,11 @@
     <fragment
         android:id="@+id/exercise"
         android:name="com.example.workoutplanner.Exercise"
-        android:label="Exercise" />
+        android:label="Exercise" >
+        <argument
+            android:name="exerciseID"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/exercisesList"
         android:name="com.example.workoutplanner.ExercisesList"

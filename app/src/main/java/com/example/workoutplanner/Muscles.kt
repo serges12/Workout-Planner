@@ -5,41 +5,46 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.workoutplanner.databinding.FragmentMusclesBinding
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 
 class Muscles : Fragment() {
-
+    private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+    var musclesAdapter: MusclesRecyclerViewAdapter? = null
+    private lateinit var recyclerView: RecyclerView
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val binding: FragmentMusclesBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_muscles, container, false)
+        val query: Query = db.collection("muscles")
 
-        val adapter = MusclesRecyclerViewAdapter()
-        val recyclerView = binding.recyclerView
+        val firestoreRecyclerOptions: FirestoreRecyclerOptions<MuscleModel> = FirestoreRecyclerOptions.Builder<MuscleModel>()
+            .setQuery(query, MuscleModel::class.java)
+            .build()
+
+        musclesAdapter = MusclesRecyclerViewAdapter(firestoreRecyclerOptions)
+        recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = adapter
-        adapter.onItemClick = {
-            view?.findNavController()?.navigate(MusclesDirections.actionMusclesToExercisesList(adapter.musclesList[adapter.pos].name))
+        recyclerView.adapter = musclesAdapter
+        musclesAdapter!!.onItemClick = {
+            view?.findNavController()?.navigate(MusclesDirections.actionMusclesToExercisesList(it.get("name").toString()))
         }
-        populateCards(adapter)
+
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+        musclesAdapter!!.startListening()
+    }
 
-    private fun populateCards(adapter: MusclesRecyclerViewAdapter){
-        val muscleList: MutableList<Muscle> = mutableListOf(
-                Muscle("Chest", R.drawable.chest),
-                Muscle("Back", R.drawable.back),
-                Muscle("Biceps", R.drawable.biceps),
-                Muscle("Triceps", R.drawable.triceps),
-                Muscle("Shoulders", R.drawable.shoulders),
-                Muscle("Legs", R.drawable.legs),
-                Muscle("Abs", R.drawable.abs)
-        )
-        adapter.setData(muscleList)
+    override fun onStop() {
+        super.onStop()
+        musclesAdapter!!.stopListening()
     }
 }
