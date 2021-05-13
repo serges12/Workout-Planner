@@ -35,7 +35,6 @@ class MusclesRecyclerViewAdapter: RecyclerView.Adapter<MusclesRecyclerViewAdapte
 
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.muscle_layout,parent,false))
     }
@@ -44,8 +43,6 @@ class MusclesRecyclerViewAdapter: RecyclerView.Adapter<MusclesRecyclerViewAdapte
         return musclesList.size
 
     }
-
-
 
     fun setData(muscles:List<Muscle>){
         musclesList = muscles

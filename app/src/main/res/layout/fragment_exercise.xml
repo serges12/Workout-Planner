@@ -1,9 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Exercise">
+
+    <TextView
+        android:id="@+id/exerciseNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Exercise Name"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/exerciseDescriptionText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="10dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:text="IPIP-NEO Narrative Report NOTE: The report sent to your computer screen upon the completion of the IPIP-NEO is only a temporary web page. When you exit your web browser you will not be able to return to this URL to re-access your report. No copies of the report are sent to anyone. IF YOU WANT A PERMANENT COPY OF THE REPORT, YOU MUST SAVE THE WEB PAGE TO YOUR HARD DRIVE OR OTHER STORAGE MEDIUM, AND/OR PRINT THE REPORT WHILE YOU ARE STILL VIEWING IT IN YOUR WEB BROWSER. Probably the best way to save the report is to select and copy the entire page (Ctrl-A, Ctrl-C on most browsers), paste it into a word processor, and save the document."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exerciseNameTextView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

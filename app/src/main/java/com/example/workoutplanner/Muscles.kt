@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutplanner.databinding.FragmentMusclesBinding
 
@@ -22,15 +23,13 @@ class Muscles : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
         adapter.onItemClick = {
-            Toast.makeText(context, adapter.musclesList[adapter.pos].name.toString(), Toast.LENGTH_SHORT).show()
-
+            view?.findNavController()?.navigate(MusclesDirections.actionMusclesToExercisesList(adapter.musclesList[adapter.pos].name))
         }
         populateCards(adapter)
         return binding.root
     }
 
 
-    // Testing purposes
     private fun populateCards(adapter: MusclesRecyclerViewAdapter){
         val muscleList: MutableList<Muscle> = mutableListOf(
                 Muscle("Chest", R.drawable.chest),
