@@ -2,30 +2,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/currentWorkout"
-        android:checked="false"
-        android:enabled="true"
         android:icon="@drawable/ic_home_icon_png"
         android:title="Current" />
     <item
         android:id="@+id/workouts"
-        android:enabled="true"
         android:icon="@drawable/ic_workouts_icon_png"
         android:title="Workouts" />
 
     <item
         android:id="@+id/muscles"
-        android:enabled="true"
         android:title="Exercises"
         android:icon="@drawable/ic_home_icon_png"/>
     <item
     android:id="@+id/history"
     android:title="History"
-    android:enabled="true"
     android:icon="@drawable/ic_history_icon_jpg"/>
     <item
         android:id="@+id/settings"
         android:title="Settings"
-        android:enabled="true"
         android:icon="@drawable/ic_settings_icon_jpg"/>
 
 </menu>

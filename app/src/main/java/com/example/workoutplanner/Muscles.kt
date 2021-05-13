@@ -22,11 +22,8 @@ class Muscles : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
         adapter.onItemClick = {
-            val exercisesList = ExercisesList()
-//            var bundle = Bundle()
-//            bundle.putString("muscle","Abs")
-//            exercisesList.arguments(bundle)
-            (activity as MainActivity).makeCurrentFragment(exercisesList)
+            Toast.makeText(context, adapter.musclesList[adapter.pos].name.toString(), Toast.LENGTH_SHORT).show()
+
         }
         populateCards(adapter)
         return binding.root

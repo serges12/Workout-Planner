@@ -15,12 +15,11 @@ import kotlinx.android.synthetic.main.workout_layout.view.*
 class MusclesRecyclerViewAdapter: RecyclerView.Adapter<MusclesRecyclerViewAdapter.ViewHolder>() {
     var musclesList = emptyList<Muscle>()
     var onItemClick: ((Muscle) -> Unit)? = null
-
+    var pos: Int = 0
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val entry = musclesList[position]
         holder.itemView.MuscleName.text = entry.name.toString()
         holder.itemView.MuscleImage.load(entry.musclePicture)
-
 
     }
 
@@ -29,6 +28,7 @@ class MusclesRecyclerViewAdapter: RecyclerView.Adapter<MusclesRecyclerViewAdapte
         init {
             view.setOnClickListener{
                 view
+                pos = adapterPosition
                 onItemClick?.invoke(musclesList[adapterPosition])
             }
         }

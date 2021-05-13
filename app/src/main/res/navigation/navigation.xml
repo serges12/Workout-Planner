@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navigation"
-    app:startDestination="@id/mainActivity">
+    app:startDestination="@id/currentWorkout">
 
     <fragment
         android:id="@+id/currentWorkout"
@@ -27,12 +27,12 @@
     <fragment
         android:id="@+id/exercisesList"
         android:name="com.example.workoutplanner.ExercisesList"
-        android:label="ExercisesList" >
+        android:label="ExercisesList">
         <action
             android:id="@+id/action_exercisesList_to_exercise"
             app:destination="@id/exercise" />
         <argument
-            android:name="MuscleName"
+            android:name="muscleName"
             app:argType="string" />
     </fragment>
     <fragment
@@ -43,8 +43,4 @@
             android:id="@+id/action_muscles_to_exercisesList"
             app:destination="@id/exercisesList" />
     </fragment>
-    <activity
-        android:id="@+id/mainActivity"
-        android:name="com.example.workoutplanner.MainActivity"
-        android:label="MainActivity" />
 </navigation>
