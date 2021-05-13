@@ -32,10 +32,15 @@ class Muscles : Fragment() {
 
     // Testing purposes
     private fun populateCards(adapter: MusclesRecyclerViewAdapter){
-        val muscleList: MutableList<Muscle> = mutableListOf()
-        for(i in 1..30){
-            muscleList.add(Muscle("Name $i","https://i.pinimg.com/originals/96/20/08/962008bd0eb249e4d575363114cec835.jpg"))
-        }
-        adapter.setData(muscleList.toList())
+        val muscleList: MutableList<Muscle> = mutableListOf(
+                Muscle("Chest", R.drawable.chest),
+                Muscle("Back", R.drawable.back),
+                Muscle("Biceps", R.drawable.biceps),
+                Muscle("Triceps", R.drawable.triceps),
+                Muscle("Shoulders", R.drawable.shoulders),
+                Muscle("Legs", R.drawable.legs),
+                Muscle("Abs", R.drawable.abs)
+        )
+        adapter.setData(muscleList)
     }
 }

@@ -28,7 +28,7 @@
                 android:id="@+id/MuscleImage"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:scaleType="center"
+                android:scaleType="fitXY"
                 tools:srcCompat="@tools:sample/avatars" />
         </androidx.cardview.widget.CardView>
 

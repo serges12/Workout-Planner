@@ -1,3 +1,5 @@
 package com.example.workoutplanner
 
-class Muscle(val name:String, val musclePicture: String)
+import android.graphics.drawable.Drawable
+
+class Muscle(val name:String, val musclePicture: Int)

@@ -19,7 +19,7 @@ class MusclesRecyclerViewAdapter: RecyclerView.Adapter<MusclesRecyclerViewAdapte
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val entry = musclesList[position]
         holder.itemView.MuscleName.text = entry.name.toString()
-        holder.itemView.MuscleImage.load(entry.musclePicture)
+        holder.itemView.MuscleImage.setImageResource(entry.musclePicture)
 
     }
 
