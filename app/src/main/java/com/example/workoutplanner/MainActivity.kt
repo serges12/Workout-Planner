@@ -11,11 +11,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.*
 import androidx.navigation.ui.NavigationUI.setupWithNavController
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.example.workoutplanner.databinding.ActivityMainBinding
 
@@ -30,6 +27,13 @@ class MainActivity : AppCompatActivity() {
         val navController = this.findNavController(R.id.myNavHostFragment)
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
         NavigationUI.setupWithNavController(binding.navView, navController)
+
+        //we need to setup appBarConfiguration for our hamburgermenu to know which are the top-level destinations
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(R.id.currentWorkout, R.id.workouts, R.id.muscles, R.id.history, R.id.settings),
+            drawerLayout
+        )
+        setupActionBarWithNavController(navController, appBarConfiguration)
 
 //        val currentWorkout = CurrentWorkout()
 //        val workouts = Workouts()
@@ -61,7 +65,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = this.findNavController(R.id.myNavHostFragment)
-        return NavigationUI.navigateUp(navController, drawerLayout)
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(R.id.currentWorkout, R.id.workouts, R.id.muscles, R.id.history, R.id.settings),
+            drawerLayout
+        )
+        //As it turns out, the appBarConfiguration needs to be used as the parameter for navigateUp so that the top-level destinations setup are obeyed:
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
 //     To close menu with back button
