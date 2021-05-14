@@ -12,7 +12,7 @@
     <item
         android:id="@+id/muscles"
         android:title="Exercises"
-        android:icon="@drawable/ic_home_icon_png"/>
+        android:icon="@drawable/ic_exercises_icon"/>
     <item
     android:id="@+id/history"
     android:title="History"

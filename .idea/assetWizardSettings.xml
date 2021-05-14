@@ -14,8 +14,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_home_icon_png" />
-                            <entry key="sourceFile" value="C:\Users\Serge\Desktop\home-icon.png.svg" />
+                            <entry key="outputName" value="ic_exercises_icon" />
+                            <entry key="sourceFile" value="C:\Users\Serge\Desktop\exercises-icon.svg" />
                           </map>
                         </option>
                       </PersistentState>
