@@ -65,6 +65,6 @@ dependencies {
     //Coil
     implementation("io.coil-kt:coil:0.13.0")
 
-    //YouTube API
-    implementation files('libs/YouTubeAndroidPlayerApi.jar')
+    //custom video api
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
 }

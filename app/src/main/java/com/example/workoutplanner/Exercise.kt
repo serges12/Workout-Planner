@@ -1,20 +1,19 @@
 package com.example.workoutplanner
 
+import android.R
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import coil.load
 import com.example.workoutplanner.databinding.FragmentExerciseBinding
-import com.google.android.youtube.player.YouTubeInitializationResult
-import com.google.android.youtube.player.YouTubePlayer
-import com.google.android.youtube.player.YouTubePlayerFragment
 import com.google.firebase.firestore.FirebaseFirestore
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 
 
 class Exercise : Fragment() {
@@ -24,35 +23,29 @@ class Exercise : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_exercise,container,false)
+        binding = DataBindingUtil.inflate(inflater,com.example.workoutplanner.R.layout.fragment_exercise,container,false)
         val exercise: ExerciseModel = ExerciseArgs.fromBundle(requireArguments()).exercise
         //now we have access to the exercise
         //see ExerciseModel.kt to check available attributes (name, description, videoLink, imageLink, bodyPart)
-        (activity as AppCompatActivity).supportActionBar?.title = exercise?.name
-        binding.exerciseDescriptionText.setText(exercise?.description)
-        binding.bodyPartText.text = exercise?.bodyPart.toString()
-        binding.imageView.load(exercise?.imageLink)
+        (activity as AppCompatActivity).supportActionBar?.title = exercise.name
+        binding.exerciseDescriptionText.setText(exercise.description)
+        binding.bodyPartText.text = exercise.bodyPart.toString()
+        binding.imageView.load(exercise.imageLink)
         binding.exerciseDescriptionText.movementMethod = ScrollingMovementMethod()
 
-        val youtubePlayerFragment = YouTubePlayerFragment()
-        youtubePlayerFragment.initialize(getString(R.string.api_key),object: YouTubePlayer.OnInitializedListener{
-            override fun onInitializationSuccess(
-                p0: YouTubePlayer.Provider?,
-                p1: YouTubePlayer?,
-                p2: Boolean
-            ) {
-                p1?.cueVideo(URLtoID(exercise?.videoLink.toString()))
-            }
 
-            override fun onInitializationFailure(
-                p0: YouTubePlayer.Provider?,
-                p1: YouTubeInitializationResult?
-            ) {
-                Toast.makeText(context, "Error Occured!", Toast.LENGTH_SHORT).show()
-            }
+        val youTubePlayerView = binding.thirdPartyPlayerView
+        lifecycle.addObserver(youTubePlayerView)
+        //remove fullscreen button
+        youTubePlayerView.getPlayerUiController().showFullscreenButton(false)
 
+        youTubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+            override fun onReady(youTubePlayer: YouTubePlayer) {
+                val videoId = URLtoID(exercise.videoLink!!)
+                youTubePlayer.loadVideo(videoId, 0F)
+            }
         })
-        (activity as AppCompatActivity).fragmentManager.beginTransaction().replace(R.id.youtube_player, youtubePlayerFragment).commit()
+
         return binding.root
     }
 
