@@ -5,42 +5,32 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.firebase.firestore.DocumentSnapshot
+import kotlinx.android.synthetic.main.muscle_layout.view.*
 import kotlinx.android.synthetic.main.workout_layout.view.*
 
-class WorkoutRecyclerViewAdapter: RecyclerView.Adapter<WorkoutRecyclerViewAdapter.ViewHolder>() {
-    var workoutList = emptyList<Workout>()
-    var onItemClick: ((Workout) -> Unit)? = null
+class WorkoutRecyclerViewAdapter(options: FirestoreRecyclerOptions<WorkoutModel>): FirestoreRecyclerAdapter<WorkoutModel, WorkoutRecyclerViewAdapter.WorkoutViewHolder>(options) {
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val entry = workoutList[position]
-        holder.itemView.WorkoutName.text = entry.name.toString()
-        holder.itemView.WorkoutID.text = entry.workoutID.toString()
-        holder.itemView.WorkoutImage.load(entry.workoutPicture)
+    var onItemClick: ((DocumentSnapshot) -> Unit)? = null
 
+    override fun onBindViewHolder(holder: WorkoutViewHolder, position: Int, model: WorkoutModel) {
+
+        holder.itemView.WorkoutName.text = model.name.toString()
     }
 
-    inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
+    inner class WorkoutViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
 
         init {
-            view.setOnClickListener{
-                onItemClick?.invoke(workoutList[adapterPosition])
+            itemView.setOnClickListener{
+                onItemClick?.invoke(snapshots.getSnapshot(layoutPosition))
             }
         }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.workout_layout,parent,false))
-    }
-
-    override fun getItemCount(): Int {
-        return workoutList.size
 
     }
 
-
-
-    fun setData(workouts:List<Workout>){
-        workoutList = workouts
-        notifyDataSetChanged()
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkoutViewHolder {
+        return WorkoutViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.workout_layout,parent,false))
     }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
     app:startDestination="@id/currentWorkout">
 
@@ -15,7 +16,11 @@
     <fragment
         android:id="@+id/workouts"
         android:name="com.example.workoutplanner.Workouts"
-        android:label="Workouts" />
+        android:label="Workouts" >
+        <action
+            android:id="@+id/action_workouts_to_workout"
+            app:destination="@id/workout" />
+    </fragment>
     <fragment
         android:id="@+id/settings"
         android:name="com.example.workoutplanner.Settings"
@@ -46,5 +51,13 @@
         <action
             android:id="@+id/action_muscles_to_exercisesList"
             app:destination="@id/exercisesList" />
+    </fragment>
+    <fragment
+        android:id="@+id/workout"
+        android:name="com.example.workoutplanner.Workout"
+        android:label="fragment_workout"
+        tools:layout="@layout/fragment_workout" >
+        <argument android:name="workoutID"
+            app:argType="string" />
     </fragment>
 </navigation>

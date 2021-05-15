@@ -22,15 +22,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/WorkoutImage"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:scaleType="center"
-                tools:srcCompat="@tools:sample/avatars" />
-        </androidx.cardview.widget.CardView>
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <LinearLayout
             android:id="@+id/linearLayout2"
@@ -54,12 +46,6 @@
                 android:text="TextView"
                 android:textColor="@color/design_default_color_error"
                 android:textSize="30sp" />
-
-            <TextView
-                android:id="@+id/WorkoutID"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
