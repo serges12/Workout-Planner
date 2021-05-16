@@ -85,7 +85,6 @@ class Workout : Fragment() {
                 db.collection("exercises").document(exerciseID).get()
                     .addOnSuccessListener {
                         Days5.add(it.toObject(ExerciseModel::class.java)!!)
-                            adapter.setData(Days5.toList())
                     }
             }
             for (exerciseID in workout.Day6Exercises!!) {
@@ -98,7 +97,6 @@ class Workout : Fragment() {
                 db.collection("exercises").document(exerciseID).get()
                     .addOnSuccessListener {
                         Days7.add(it.toObject(ExerciseModel::class.java)!!)
-                        adapter.setData(Days7.toList())
                     }
             }
         }

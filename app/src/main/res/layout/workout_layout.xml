@@ -42,12 +42,19 @@
             <TextView
                 android:id="@+id/WorkoutName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="TextView"
                 android:textColor="@color/design_default_color_error"
                 android:textSize="30sp" />
 
+            <Button
+                android:id="@+id/buttonMakeCurrentWorkout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Make Current Workout" />
+
         </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

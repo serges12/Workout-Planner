@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.workout_layout.view.*
 class WorkoutRecyclerViewAdapter(options: FirestoreRecyclerOptions<WorkoutModel>): FirestoreRecyclerAdapter<WorkoutModel, WorkoutRecyclerViewAdapter.WorkoutViewHolder>(options) {
 
     var onItemClick: ((DocumentSnapshot) -> Unit)? = null
+    var onMakeCurrenntWorkoutClick: ((DocumentSnapshot)->Unit)?=null
 
     override fun onBindViewHolder(holder: WorkoutViewHolder, position: Int, model: WorkoutModel) {
 
@@ -25,6 +26,9 @@ class WorkoutRecyclerViewAdapter(options: FirestoreRecyclerOptions<WorkoutModel>
         init {
             itemView.setOnClickListener{
                 onItemClick?.invoke(snapshots.getSnapshot(layoutPosition))
+            }
+            itemView.buttonMakeCurrentWorkout.setOnClickListener{
+                onMakeCurrenntWorkoutClick?.invoke(snapshots.getSnapshot(layoutPosition))
             }
         }
 

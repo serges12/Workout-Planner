@@ -12,8 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workoutplanner.databinding.FragmentWorkoutsBinding
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import java.util.*
 
 class Workouts : Fragment() {
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
@@ -40,6 +42,17 @@ class Workouts : Fragment() {
         recyclerView.adapter = workoutsAdapter
         workoutsAdapter!!.onItemClick = {
             view?.findNavController()?.navigate(WorkoutsDirections.actionWorkoutsToWorkout(it.toObject(WorkoutModel::class.java)!!, 3))
+        }
+        workoutsAdapter!!.onMakeCurrenntWorkoutClick = {
+            //make this the current workout of the user
+            val user: UserModel = UserModel(it.id, Calendar.DAY_OF_WEEK.toLong())
+            db.collection("users").document(FirebaseAuth.getInstance().uid!!).set(user)
+                    .addOnSuccessListener {
+                        Toast.makeText(context, "Sucess", Toast.LENGTH_SHORT).show()
+                    }
+                    .addOnFailureListener{
+                        Toast.makeText(context, "Error: "+it.message, Toast.LENGTH_SHORT).show()
+                    }
         }
 
         return binding.root

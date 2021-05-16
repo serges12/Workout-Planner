@@ -10,13 +10,13 @@
         android:title="Workouts" />
 
     <item
+        android:id="@+id/customWorkout"
+        android:icon="@drawable/ic_history_icon_jpg"
+        android:title="Custom Workouts" />
+    <item
         android:id="@+id/muscles"
         android:title="Exercises"
         android:icon="@drawable/ic_exercises_icon"/>
-    <item
-    android:id="@+id/customWorkout"
-    android:title="Custom Workout"
-    android:icon="@drawable/ic_history_icon_jpg"/>
     <item
         android:id="@+id/settings"
         android:title="Settings"
