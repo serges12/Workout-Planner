@@ -26,9 +26,6 @@ class Workouts : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding: FragmentWorkoutsBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_workouts, container, false)
-        binding.addWorkoutButton.setOnClickListener{
-            Toast.makeText(context,"Create Workout",Toast.LENGTH_SHORT).show()
-        }
 
         val query: Query = db.collection("workouts")
 

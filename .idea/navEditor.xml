@@ -81,6 +81,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="customWorkout">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="exercise">
                     <value>
                       <LayoutPositions>
@@ -110,18 +122,6 @@
                               </value>
                             </entry>
                           </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="history">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="-227" />
-                            <option name="y" value="14" />
-                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>
