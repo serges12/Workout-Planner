@@ -14,8 +14,8 @@
         android:title="Exercises"
         android:icon="@drawable/ic_exercises_icon"/>
     <item
-    android:id="@+id/history"
-    android:title="History"
+    android:id="@+id/customWorkout"
+    android:title="Custom Workout"
     android:icon="@drawable/ic_history_icon_jpg"/>
     <item
         android:id="@+id/settings"

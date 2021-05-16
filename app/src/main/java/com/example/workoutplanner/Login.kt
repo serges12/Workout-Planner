@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
-import com.example.workoutplanner.databinding.FragmentHistoryBinding
 import com.example.workoutplanner.databinding.FragmentLoginBinding
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth

@@ -14,10 +14,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutplanner.databinding.FragmentCurrentWorkoutBinding
-import com.example.workoutplanner.databinding.FragmentHistoryBinding
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.api.Distribution
+import com.google.common.primitives.UnsignedBytes.toInt
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -34,18 +34,17 @@ class CurrentWorkout : Fragment() {
 
         val db = FirebaseFirestore.getInstance()
         var currentWorkoutID: String
-        var startingDay: String
+        var startingDay: Int
 
         db.collection("users").document(FirebaseAuth.getInstance().uid!!).get()
             .addOnSuccessListener {
                 currentWorkoutID= it.data!!.get("currentWorkout").toString() //here we should get the current workout ID
-                startingDay= it.data!!.get("startingDay").toString()//here we store the starting day
+                startingDay= (it.data!!.get("startingDay") as Long).toInt()//here we store the starting day
 
                 //
                 // ADD CODE HERE
                 //
-
-
+                
 
                 //when we get userid, we set onclick listener
                 binding.buttonGoToCurrentWorkout.setOnClickListener {view: View->

@@ -14,9 +14,9 @@
             app:destination="@id/workout" />
     </fragment>
     <fragment
-        android:id="@+id/history"
-        android:name="com.example.workoutplanner.History"
-        android:label="History" />
+        android:id="@+id/customWorkout"
+        android:name="com.example.workoutplanner.CustomWorkouts"
+        android:label="Custom Workout" />
     <fragment
         android:id="@+id/workouts"
         android:name="com.example.workoutplanner.Workouts"
@@ -68,6 +68,6 @@
             app:destination="@id/exercise" />
         <argument
             android:name="startingDay"
-            app:argType="string" />
+            app:argType="integer" />
     </fragment>
 </navigation>

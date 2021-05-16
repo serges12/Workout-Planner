@@ -39,7 +39,7 @@ class Workouts : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = workoutsAdapter
         workoutsAdapter!!.onItemClick = {
-            view?.findNavController()?.navigate(WorkoutsDirections.actionWorkoutsToWorkout(it.toObject(WorkoutModel::class.java)!!, "Wednesday"))
+            view?.findNavController()?.navigate(WorkoutsDirections.actionWorkoutsToWorkout(it.toObject(WorkoutModel::class.java)!!, 3))
         }
 
         return binding.root

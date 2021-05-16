@@ -7,15 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import com.example.workoutplanner.databinding.FragmentHistoryBinding
+import com.example.workoutplanner.databinding.FragmentCustomWorkoutBinding
 import com.example.workoutplanner.databinding.FragmentWorkoutsBinding
 
-class History : Fragment() {
+class CustomWorkouts : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: FragmentHistoryBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_history, container, false)
+        val binding: FragmentCustomWorkoutBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_custom_workout, container, false)
         return binding.root
     }
 

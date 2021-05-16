@@ -13,6 +13,7 @@ import com.example.workoutplanner.databinding.FragmentWorkoutBinding
 import com.google.android.material.chip.Chip
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
+import kotlin.concurrent.thread
 
 class Workout : Fragment() {
     private lateinit var binding: FragmentWorkoutBinding
@@ -22,6 +23,7 @@ class Workout : Fragment() {
         // Inflate the layout for this fragment
         val binding: FragmentWorkoutBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_workout, container, false)
         val workout: WorkoutModel = WorkoutArgs.fromBundle(requireArguments()).workoutModel
+        val startingDay: Int = WorkoutArgs.fromBundle(requireArguments()).startingDay
         val adapter = DailyExercisesRecylerViewAdapter()
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = adapter
@@ -34,6 +36,25 @@ class Workout : Fragment() {
         var Days5: MutableList<ExerciseModel> = mutableListOf<ExerciseModel>()
         var Days6: MutableList<ExerciseModel> = mutableListOf<ExerciseModel>()
         var Days7: MutableList<ExerciseModel> = mutableListOf<ExerciseModel>()
+
+
+        //now the lists Days1, Days2... Days7 contain exercises for each day
+        //store in database the starting day and generate names based on that starting day
+        //set starting day
+        var now = Calendar.DAY_OF_WEEK
+        var temp = startingDay
+        var load = 0
+        val daysOfTheWeek = listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday","Sunday")
+        for(i in 0..6) {
+            val v: Chip = binding.chipGroup.getChildAt(i) as Chip
+            v.text = daysOfTheWeek[(temp-1)%7]
+            //set today's day as checked
+            if(daysOfTheWeek[(now-1)%7]==daysOfTheWeek[(temp-1)%7]) {
+                v.isChecked = true
+                load = temp
+            }
+            temp++
+        }
 
         if(workout.Day1Exercises != null && workout.Day2Exercises !=null&& workout.Day3Exercises !=null&& workout.Day4Exercises !=null&& workout.Day5Exercises !=null&& workout.Day6Exercises !=null&& workout.Day7Exercises !=null) {
             for (exerciseID in workout.Day1Exercises!!) {
@@ -64,6 +85,7 @@ class Workout : Fragment() {
                 db.collection("exercises").document(exerciseID).get()
                     .addOnSuccessListener {
                         Days5.add(it.toObject(ExerciseModel::class.java)!!)
+                            adapter.setData(Days5.toList())
                     }
             }
             for (exerciseID in workout.Day6Exercises!!) {
@@ -76,6 +98,7 @@ class Workout : Fragment() {
                 db.collection("exercises").document(exerciseID).get()
                     .addOnSuccessListener {
                         Days7.add(it.toObject(ExerciseModel::class.java)!!)
+                        adapter.setData(Days7.toList())
                     }
             }
         }
@@ -85,25 +108,9 @@ class Workout : Fragment() {
 
 
 
-        //now the lists Days1, Days2... Days7 contain exercises for each day
-
-        //store in database the starting day and generate names based on that starting day
-        var now = Calendar.DAY_OF_WEEK
-        var temp = now
-        val daysOfTheWeek = listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday","Sunday")
-        for(i in 0..6) {
-            val v: Chip = binding.chipGroup.getChildAt(i) as Chip
-            v.text = daysOfTheWeek[(temp-1)%7]
-            //set today's day as checked
-            if(daysOfTheWeek[(now-1)%7]==daysOfTheWeek[(temp-1)%7])
-                v.isChecked = true
-            temp++
-        }
-
 
         //fill recycler view
         // should be done on each chip click
-        adapter.setData(Days1.toList())
 
         adapter.onItemClick = {
             view?.findNavController()?.navigate(WorkoutDirections.actionWorkoutToExercise(it))
