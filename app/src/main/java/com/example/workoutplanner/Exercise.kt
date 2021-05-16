@@ -42,7 +42,7 @@ class Exercise : Fragment() {
         youTubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
                 val videoId = URLtoID(exercise.videoLink!!)
-                youTubePlayer.loadVideo(videoId, 0F)
+                youTubePlayer.cueVideo(videoId, 0F)
             }
         })
 
