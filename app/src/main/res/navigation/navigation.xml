@@ -10,8 +10,8 @@
         android:name="com.example.workoutplanner.CurrentWorkout"
         android:label="CurrentWorkout" >
         <action
-            android:id="@+id/action_currentWorkout_to_exercise"
-            app:destination="@id/exercise" />
+            android:id="@+id/action_currentWorkout_to_workout"
+            app:destination="@id/workout" />
     </fragment>
     <fragment
         android:id="@+id/history"
@@ -61,7 +61,13 @@
         android:name="com.example.workoutplanner.Workout"
         android:label="fragment_workout"
         tools:layout="@layout/fragment_workout" >
-        <argument android:name="workoutID"
+        <argument android:name="workoutModel"
+            app:argType="com.example.workoutplanner.WorkoutModel" />
+        <action
+            android:id="@+id/action_workout_to_exercise"
+            app:destination="@id/exercise" />
+        <argument
+            android:name="startingDay"
             app:argType="string" />
     </fragment>
 </navigation>
