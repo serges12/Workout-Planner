@@ -21,20 +21,23 @@ import java.util.*
 
 class Workout : Fragment() {
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+    lateinit var binding: FragmentWorkoutBinding
+    var day = Calendar.getInstance().time.day
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        Log.i("test","creatednjn gergerk ger fekr")
-        val binding: FragmentWorkoutBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_workout, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_workout, container, false)
         val workout: WorkoutModel = WorkoutArgs.fromBundle(requireArguments()).workoutModel
         val workoutID: String = WorkoutArgs.fromBundle(requireArguments()).workoutID
-        val startingDay: Int = WorkoutArgs.fromBundle(requireArguments()).startingDay
         val allowModifications: Boolean = WorkoutArgs.fromBundle(requireArguments()).allowModifications
+        val startingDay: Int = WorkoutArgs.fromBundle(requireArguments()).startingDay
+
+        Log.i("test",binding.chipGroup.checkedChipId.toString())
+
 
         val adapter = DailyExercisesRecylerViewAdapter()
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = adapter
-        //temp list for current workout
         val workoutName = workout.name
         var Days1: MutableList<ExerciseModel> = mutableListOf<ExerciseModel>()
         var Days2: MutableList<ExerciseModel> = mutableListOf<ExerciseModel>()
@@ -47,7 +50,6 @@ class Workout : Fragment() {
         //now the lists Days1, Days2... Days7 contain exercises for each day
         //store in database the starting day and generate names based on that starting day
         //set starting day
-        var day = Calendar.getInstance().time.day
         var temp = startingDay
         val daysOfTheWeek = listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday","Sunday")
         for(i in 0..6) {
@@ -124,6 +126,8 @@ class Workout : Fragment() {
             }
         }
 
+        var workoutDays = listOf(Days1,Days2,Days3,Days4,Days5,Days6,Days7)
+
         //set current workout name
         binding.WorkoutNameText.text = workoutName
 
@@ -131,9 +135,8 @@ class Workout : Fragment() {
             view?.findNavController()?.navigate(WorkoutDirections.actionWorkoutToExercise(it))
         }
 
-
         //if we're allowing adding/deleting exercises
-        if(allowModifications == true){
+        if(allowModifications){
             binding.addExerciseButton.visibility = View.VISIBLE
 
             binding.addExerciseButton.setOnClickListener{view:View->
@@ -145,29 +148,13 @@ class Workout : Fragment() {
                             val exerciseID = snapshot.documents[0].id
 
                             val checkedChipID = binding.chipGroup.checkedChipId
-                            val arrayName = when(checkedChipID){
-                                R.id.chip1->"day1Exercises"
-                                R.id.chip2->"day2Exercises"
-                                R.id.chip3->"day3Exercises"
-                                R.id.chip4->"day4Exercises"
-                                R.id.chip5->"day5Exercises"
-                                R.id.chip6->"day6Exercises"
-                                R.id.chip7->"day7Exercises"
-                                else->"days1Exercises"
-                            }
+                            val arrayName = "day"+((checkedChipID - R.id.chip1)+1).toString()+"Exercises"
+
 
                             db.collection("workouts").document(workoutID).update(arrayName, FieldValue.arrayRemove(exerciseID))
                                     .addOnSuccessListener {
-                                        when(checkedChipID){
-                                            R.id.chip1-> {Days1.remove(exercise);showDayWorkout(Days1, adapter, binding)}
-                                            R.id.chip2->{Days2.remove(exercise);showDayWorkout(Days2, adapter, binding)}
-                                            R.id.chip3->{Days3.remove(exercise);showDayWorkout(Days3, adapter, binding)}
-                                            R.id.chip4->{Days4.remove(exercise);showDayWorkout(Days4, adapter, binding)}
-                                            R.id.chip5->{Days5.remove(exercise);showDayWorkout(Days5, adapter, binding)}
-                                            R.id.chip6->{Days6.remove(exercise);showDayWorkout(Days6, adapter, binding)}
-                                            R.id.chip7->{Days7.remove(exercise);showDayWorkout(Days7, adapter, binding)}
-                                            else->Days1.remove(exercise)
-                                        }
+                                        workoutDays[checkedChipID - R.id.chip1].remove(exercise)
+                                        showDayWorkout(workoutDays[checkedChipID - R.id.chip1], adapter, binding)
                                         Toast.makeText(context, "Exercise Removed.", Toast.LENGTH_SHORT).show()
                                     }
                                     .addOnFailureListener{
@@ -181,37 +168,31 @@ class Workout : Fragment() {
 
         }
 
-
         binding.chipGroup.setOnCheckedChangeListener{group, checkedId ->
-            val exercisesList: MutableList<ExerciseModel> = when(checkedId){
-                R.id.chip1->Days1
-                R.id.chip2->Days2
-                R.id.chip3->Days3
-                R.id.chip4->Days4
-                R.id.chip5->Days5
-                R.id.chip6->Days6
-                R.id.chip7->Days7
-                else-> Days1
-            }
-           showDayWorkout(exercisesList, adapter, binding)
+            val exercisesList: MutableList<ExerciseModel> = workoutDays[checkedId - R.id.chip1]
+            showDayWorkout(exercisesList, adapter, binding)
         }
+
+        Log.i("test",binding.chipGroup.checkedChipId.toString() + " " +binding.chip1.id.toString())
+
         return binding.root
     }
 
     private fun showDayWorkout(exercisesList: MutableList<ExerciseModel>, adapter: DailyExercisesRecylerViewAdapter, binding: FragmentWorkoutBinding){
 //        val chip = binding.chipGroup.getChildAt(1) as Chip
 //        chip.isChecked = true
-//        Toast.makeText(context, chip.text.toString(), Toast.LENGTH_SHORT).show()
+//        Toast.makeText(context, binding.chipGroup.checkedChipId.toString(), Toast.LENGTH_SHORT).show()
         binding.restDayText.isVisible = exercisesList.size == 0
-        adapter.setData(exercisesList.toList())
 
+        adapter.setData(exercisesList.toList())
     }
 
-
-//    override fun onPause() {
-//        Log.i("test", "is paused")
-//        super.onPause()
-//    }
+    //to make sure the right chip is checked on resume
+    override fun onPause() {
+        val chip: Chip = binding.chipGroup.getChildAt(day-1) as Chip
+        chip.isChecked = true
+        super.onPause()
+    }
 //
 //    override fun onResume() {
 //        Log.i("test", "On resume")
