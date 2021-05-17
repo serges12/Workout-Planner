@@ -16,7 +16,11 @@
     <fragment
         android:id="@+id/customWorkout"
         android:name="com.example.workoutplanner.CustomWorkouts"
-        android:label="Custom Workout" />
+        android:label="Custom Workout" >
+        <action
+            android:id="@+id/action_customWorkout_to_workout"
+            app:destination="@id/workout" />
+    </fragment>
     <fragment
         android:id="@+id/workouts"
         android:name="com.example.workoutplanner.Workouts"
@@ -69,5 +73,11 @@
         <argument
             android:name="startingDay"
             app:argType="integer" />
+        <argument
+            android:name="allowModifications"
+            app:argType="boolean" />
+        <argument
+            android:name="workoutID"
+            app:argType="string" />
     </fragment>
 </navigation>

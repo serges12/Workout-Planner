@@ -38,26 +38,39 @@ class CurrentWorkout : Fragment() {
 
         db.collection("users").document(FirebaseAuth.getInstance().uid!!).get()
             .addOnSuccessListener {
-                currentWorkoutID= it.data!!.get("currentWorkout").toString() //here we should get the current workout ID
-                startingDay= (it.data!!.get("startingDay") as Long).toInt()//here we store the starting day
+                if(it.data != null) {
+                    currentWorkoutID = it.data!!.get("currentWorkout").toString() //here we should get the current workout ID
+                    startingDay = (it.data!!.get("startingDay") as Long).toInt()//here we store the starting day
 
-                //
-                // ADD CODE HERE
-                //
-                
+                    //
+                    // ADD CODE HERE
+                    //
 
-                //when we get userid, we set onclick listener
-                binding.buttonGoToCurrentWorkout.setOnClickListener {view: View->
-                    db.collection("workouts").document(currentWorkoutID)
-                        .get()
-                        .addOnSuccessListener {
-                            view.findNavController()?.navigate(
-                                CurrentWorkoutDirections.actionCurrentWorkoutToWorkout(
-                                    it.toObject(WorkoutModel::class.java)!!,
-                                    startingDay
-                                )
-                            )
-                        }
+
+                    //when we get userid, we set onclick listener
+                    binding.buttonGoToCurrentWorkout.setOnClickListener { view: View ->
+                        binding.buttonGoToCurrentWorkout.isClickable = false
+                        db.collection("workouts").document(currentWorkoutID)
+                                .get()
+                                .addOnSuccessListener {
+                                    view.findNavController().navigate(
+                                            CurrentWorkoutDirections.actionCurrentWorkoutToWorkout(
+                                                    it.toObject(WorkoutModel::class.java)!!,
+                                                    startingDay,
+                                                    false,
+                                                    currentWorkoutID
+                                            )
+                                    )
+                                }
+                                .addOnFailureListener{
+                                    binding.buttonGoToCurrentWorkout.isClickable = true
+                                }
+                    }
+                }
+                else{
+                    binding.buttonGoToCurrentWorkout.setOnClickListener {
+                        Toast.makeText(context, "Error: Select a current workout first!", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
             .addOnFailureListener{

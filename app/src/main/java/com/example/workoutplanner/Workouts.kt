@@ -27,7 +27,7 @@ class Workouts : Fragment() {
     ): View? {
         val binding: FragmentWorkoutsBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_workouts, container, false)
 
-        val query: Query = db.collection("workouts")
+        val query: Query = db.collection("workouts").whereEqualTo("userID", "admin")
 
         val firestoreRecyclerOptions: FirestoreRecyclerOptions<WorkoutModel> = FirestoreRecyclerOptions.Builder<WorkoutModel>()
                 .setQuery(query, WorkoutModel::class.java)
@@ -38,11 +38,11 @@ class Workouts : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = workoutsAdapter
         workoutsAdapter!!.onItemClick = {
-            view?.findNavController()?.navigate(WorkoutsDirections.actionWorkoutsToWorkout(it.toObject(WorkoutModel::class.java)!!, 3))
+            view?.findNavController()?.navigate(WorkoutsDirections.actionWorkoutsToWorkout(it.toObject(WorkoutModel::class.java)!!, 1, false, it.id))//starting day is 1 if we only wana see details
         }
         workoutsAdapter!!.onMakeCurrenntWorkoutClick = {
             //make this the current workout of the user
-            val user: UserModel = UserModel(it.id, Calendar.DAY_OF_WEEK.toLong())
+            val user: UserModel = UserModel(it.id, Calendar.getInstance().time.day.toLong())
             db.collection("users").document(FirebaseAuth.getInstance().uid!!).set(user)
                     .addOnSuccessListener {
                         Toast.makeText(context, "Sucess", Toast.LENGTH_SHORT).show()

@@ -15,6 +15,7 @@ class WorkoutRecyclerViewAdapter(options: FirestoreRecyclerOptions<WorkoutModel>
 
     var onItemClick: ((DocumentSnapshot) -> Unit)? = null
     var onMakeCurrenntWorkoutClick: ((DocumentSnapshot)->Unit)?=null
+    var onLongItemClick: ((DocumentSnapshot) -> Unit)? = null
 
     override fun onBindViewHolder(holder: WorkoutViewHolder, position: Int, model: WorkoutModel) {
 
@@ -29,6 +30,10 @@ class WorkoutRecyclerViewAdapter(options: FirestoreRecyclerOptions<WorkoutModel>
             }
             itemView.buttonMakeCurrentWorkout.setOnClickListener{
                 onMakeCurrenntWorkoutClick?.invoke(snapshots.getSnapshot(layoutPosition))
+            }
+            itemView.setOnLongClickListener{
+                onLongItemClick?.invoke(snapshots.getSnapshot(layoutPosition))
+                true
             }
         }
 

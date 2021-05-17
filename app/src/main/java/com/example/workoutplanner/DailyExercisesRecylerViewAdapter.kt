@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.exercise_layout.view.*
 class DailyExercisesRecylerViewAdapter: RecyclerView.Adapter<DailyExercisesRecylerViewAdapter.ViewHolder>() {
         var exercisesList = emptyList<ExerciseModel>()
         var onItemClick: ((ExerciseModel) -> Unit)? = null
+        var onLongItemClick: ((ExerciseModel) -> Unit)? = null
 
     override fun onBindViewHolder(holder: DailyExercisesRecylerViewAdapter.ViewHolder, position: Int) {
         val entry = exercisesList[position]
@@ -22,6 +23,10 @@ class DailyExercisesRecylerViewAdapter: RecyclerView.Adapter<DailyExercisesRecyl
         init {
             view.setOnClickListener{
                 onItemClick?.invoke(exercisesList[adapterPosition])
+            }
+            view.setOnLongClickListener{
+                onLongItemClick?.invoke(exercisesList[adapterPosition])
+                true
             }
         }
     }
