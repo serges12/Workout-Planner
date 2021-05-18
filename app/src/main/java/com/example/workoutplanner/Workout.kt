@@ -1,5 +1,7 @@
 package com.example.workoutplanner
 
+import android.app.Activity
+import android.content.Intent
 import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavOptions
@@ -28,6 +31,28 @@ class Workout : Fragment() {
     var exercisesAdapter: DailyExercisesRecylerViewAdapter? = null
     lateinit var workoutID: String
     private lateinit var workout: WorkoutModel
+
+    //new way to get result from activities (instead of startActivityForResult which is deprecated
+    //see registerForActivityResult documentation here https://developer.android.com/training/basics/intents/result
+    val getExerciseResultContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){result->
+        if(result.resultCode== Activity.RESULT_OK){
+            val intent: Intent? = result.data
+            val exerciseName : String?= intent?.getStringExtra("exerciseName")
+            if(exerciseName != null){
+                when(binding.chipGroup.checkedChipId){
+                    R.id.chip1->addExercise(1, exerciseName)
+                    R.id.chip2->addExercise(2, exerciseName)
+                    R.id.chip3->addExercise(3, exerciseName)
+                    R.id.chip4->addExercise(4, exerciseName)
+                    R.id.chip5->addExercise(5, exerciseName)
+                    R.id.chip6->addExercise(6, exerciseName)
+                    R.id.chip7->addExercise(7, exerciseName)
+                    else-> Toast.makeText(context, "Error: Invalid day", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -81,8 +106,10 @@ class Workout : Fragment() {
         if(allowModifications) {
             binding.addExerciseButton.visibility = View.VISIBLE
 
-            binding.addExerciseButton.setOnClickListener { view: View ->
-
+            binding.addExerciseButton.setOnClickListener {
+                //we want to launch getActivity to get an exercise to then add it
+                getExerciseResultContract.launch(Intent(context, GetExerciseActivity::class.java))
+                //logic for adding exercise is in the global getExerciseResultContract variable
             }
             //deleting exercise on long click
             exercisesAdapter!!.onLongItemClick = { exercise ->
@@ -159,6 +186,89 @@ class Workout : Fragment() {
                 .setQuery(query, ExerciseModel::class.java)
                 .build()
         exercisesAdapter!!.updateOptions(firestoreRecyclerOptions)
+    }
+
+    private fun addExercise(dayNumber: Int, exerciseName: String){
+        when(dayNumber){
+            1->{
+                db.collection("workouts").document(workoutID).update("day1Exercises", FieldValue.arrayUnion(exerciseName))
+                    .addOnSuccessListener {
+                        db.collection("workouts").document(workoutID).get()
+                            .addOnSuccessListener {
+                                workout = it.toObject(WorkoutModel::class.java)!!
+                                updateRecycler(1)
+                                Toast.makeText(context, "Exercise Added!", Toast.LENGTH_SHORT).show()
+                            }
+                    }
+            }
+            2->{
+                db.collection("workouts").document(workoutID).update("day2Exercises", FieldValue.arrayUnion(exerciseName))
+                    .addOnSuccessListener {
+                        db.collection("workouts").document(workoutID).get()
+                            .addOnSuccessListener {
+                                workout = it.toObject(WorkoutModel::class.java)!!
+                                updateRecycler(2)
+                                Toast.makeText(context, "Exercise Added!", Toast.LENGTH_SHORT).show()
+                            }
+                    }
+            }
+            3->{
+                db.collection("workouts").document(workoutID).update("day3Exercises", FieldValue.arrayUnion(exerciseName))
+                    .addOnSuccessListener {
+                        db.collection("workouts").document(workoutID).get()
+                            .addOnSuccessListener {
+                                workout = it.toObject(WorkoutModel::class.java)!!
+                                updateRecycler(3)
+                                Toast.makeText(context, "Exercise Added!", Toast.LENGTH_SHORT).show()
+                            }
+                    }
+            }
+            4->{
+                db.collection("workouts").document(workoutID).update("day4Exercises", FieldValue.arrayUnion(exerciseName))
+                    .addOnSuccessListener {
+                        db.collection("workouts").document(workoutID).get()
+                            .addOnSuccessListener {
+                                workout = it.toObject(WorkoutModel::class.java)!!
+                                updateRecycler(4)
+                                Toast.makeText(context, "Exercise Added!", Toast.LENGTH_SHORT).show()
+                            }
+                    }
+            }
+            5->{
+                db.collection("workouts").document(workoutID).update("day5Exercises", FieldValue.arrayUnion(exerciseName))
+                    .addOnSuccessListener {
+                        db.collection("workouts").document(workoutID).get()
+                            .addOnSuccessListener {
+                                workout = it.toObject(WorkoutModel::class.java)!!
+                                updateRecycler(5)
+                                Toast.makeText(context, "Exercise Added!", Toast.LENGTH_SHORT).show()
+                            }
+                    }
+            }
+            6->{
+                db.collection("workouts").document(workoutID).update("day6Exercises", FieldValue.arrayUnion(exerciseName))
+                    .addOnSuccessListener {
+                        db.collection("workouts").document(workoutID).get()
+                            .addOnSuccessListener {
+                                workout = it.toObject(WorkoutModel::class.java)!!
+                                updateRecycler(6)
+                                Toast.makeText(context, "Exercise Added!", Toast.LENGTH_SHORT).show()
+                            }
+                    }
+            }
+            7->{
+                db.collection("workouts").document(workoutID).update("day7Exercises", FieldValue.arrayUnion(exerciseName))
+                    .addOnSuccessListener {
+                        db.collection("workouts").document(workoutID).get()
+                            .addOnSuccessListener {
+                                workout = it.toObject(WorkoutModel::class.java)!!
+                                updateRecycler(7)
+                                Toast.makeText(context, "Exercise Added!", Toast.LENGTH_SHORT).show()
+                            }
+                    }
+            }
+            else-> Toast.makeText(context, "Invalid day!", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun deleteExercise(dayNumber: Int, exerciseName: String){
