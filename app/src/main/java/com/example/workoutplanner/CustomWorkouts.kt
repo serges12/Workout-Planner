@@ -62,7 +62,7 @@ class CustomWorkouts : Fragment() {
                     }
                     .setPositiveButton("Yes"){
                         dialogInterface, i ->
-                        //Handle Logout here
+                        //Handle Delete here
                         it.reference.delete()
                                 .addOnSuccessListener {
                             Toast.makeText(context, "Deleted.", Toast.LENGTH_SHORT).show()

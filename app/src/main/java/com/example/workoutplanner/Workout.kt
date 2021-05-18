@@ -26,6 +26,7 @@ class Workout : Fragment() {
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
     lateinit var binding: FragmentWorkoutBinding
     var exercisesAdapter: DailyExercisesRecylerViewAdapter? = null
+    lateinit var workoutID: String
     private lateinit var workout: WorkoutModel
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -33,7 +34,7 @@ class Workout : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_workout, container, false)
         workout= WorkoutArgs.fromBundle(requireArguments()).workoutModel
 
-        val workoutID: String = WorkoutArgs.fromBundle(requireArguments()).workoutID
+        workoutID = WorkoutArgs.fromBundle(requireArguments()).workoutID
         val allowModifications: Boolean = WorkoutArgs.fromBundle(requireArguments()).allowModifications
         var startingDay: Int = WorkoutArgs.fromBundle(requireArguments()).startingDay
         var day: Int = WorkoutArgs.fromBundle(requireArguments()).currentDay
@@ -75,38 +76,47 @@ class Workout : Fragment() {
             view?.findNavController()?.navigate(WorkoutDirections.actionWorkoutToExercise(it))
         }
 
+
         //if we're allowing adding/deleting exercises
-//        if(allowModifications){
-//            binding.addExerciseButton.visibility = View.VISIBLE
-//
-//            binding.addExerciseButton.setOnClickListener{view:View->
-//
-//            }
-//            exercisesAdapter!!.onLongItemClick = {exercise->
-//                db.collection("exercises").whereEqualTo("name", exercise.name).get()
-//                        .addOnSuccessListener { snapshot->
-//                            val exerciseID = snapshot.documents[0].id
-//
-//                            val checkedChipID = binding.chipGroup.checkedChipId
-//                            val arrayName = "day"+((checkedChipID - R.id.chip1)+1).toString()+"Exercises"
-//
-//
-//                            db.collection("workouts").document(workoutID).update(arrayName, FieldValue.arrayRemove(exerciseID))
-//                                    .addOnSuccessListener {
-//                                        workoutDays[checkedChipID - R.id.chip1].remove(exercise)
-//                                        showDayWorkout(workoutDays[checkedChipID - R.id.chip1], exercisesAdapter, binding)
-//                                        Toast.makeText(context, "Exercise Removed.", Toast.LENGTH_SHORT).show()
-//                                    }
-//                                    .addOnFailureListener{
-//                                        Toast.makeText(context, "Error: "+it.message, Toast.LENGTH_SHORT).show()
-//                                    }
-//                        }
-//                        .addOnFailureListener{
-//                            Toast.makeText(context, "Error: "+it.message, Toast.LENGTH_SHORT).show()
-//                        }
-//            }
-//
-//        }
+        if(allowModifications) {
+            binding.addExerciseButton.visibility = View.VISIBLE
+
+            binding.addExerciseButton.setOnClickListener { view: View ->
+
+            }
+            //deleting exercise on long click
+            exercisesAdapter!!.onLongItemClick = { exercise ->
+
+                val dialogBuilder = android.app.AlertDialog.Builder(context)
+                dialogBuilder
+                        .setTitle("Remove?")
+                        .setMessage("You are about to remove this exercise. Proceed?")
+                        .setNegativeButton("No"){
+                            dialogInterface, i ->
+                            dialogInterface.cancel()
+                        }
+                        .setPositiveButton("Yes"){
+                            dialogInterface, i ->
+                            //Handle Delete here
+                            when(binding.chipGroup.checkedChipId){
+                                R.id.chip1->deleteExercise(1, exercise.name!!)
+                                R.id.chip2->deleteExercise(2, exercise.name!!)
+                                R.id.chip3->deleteExercise(3, exercise.name!!)
+                                R.id.chip4->deleteExercise(4, exercise.name!!)
+                                R.id.chip5->deleteExercise(5, exercise.name!!)
+                                R.id.chip6->deleteExercise(6, exercise.name!!)
+                                R.id.chip7->deleteExercise(7, exercise.name!!)
+                                else-> Toast.makeText(context, "Invalid day!", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                val alert = dialogBuilder.create()
+                alert.show()
+
+
+
+
+            }
+        }
 
         binding.chipGroup.setOnCheckedChangeListener{group, checkedId ->
             when(checkedId){
@@ -149,6 +159,89 @@ class Workout : Fragment() {
                 .setQuery(query, ExerciseModel::class.java)
                 .build()
         exercisesAdapter!!.updateOptions(firestoreRecyclerOptions)
+    }
+
+    private fun deleteExercise(dayNumber: Int, exerciseName: String){
+        when(dayNumber){
+            1->{
+                db.collection("workouts").document(workoutID).update("day1Exercises", FieldValue.arrayRemove(exerciseName))
+                        .addOnSuccessListener {
+                            db.collection("workouts").document(workoutID).get()
+                                    .addOnSuccessListener {
+                                        workout = it.toObject(WorkoutModel::class.java)!!
+                                        updateRecycler(1)
+                                        Toast.makeText(context, "Exercise Deleted!", Toast.LENGTH_SHORT).show()
+                                    }
+                        }
+            }
+            2->{
+                db.collection("workouts").document(workoutID).update("day2Exercises", FieldValue.arrayRemove(exerciseName))
+                        .addOnSuccessListener {
+                            db.collection("workouts").document(workoutID).get()
+                                    .addOnSuccessListener {
+                                        workout = it.toObject(WorkoutModel::class.java)!!
+                                        updateRecycler(2)
+                                        Toast.makeText(context, "Exercise Deleted!", Toast.LENGTH_SHORT).show()
+                                    }
+                        }
+            }
+            3->{
+                db.collection("workouts").document(workoutID).update("day3Exercises", FieldValue.arrayRemove(exerciseName))
+                        .addOnSuccessListener {
+                            db.collection("workouts").document(workoutID).get()
+                                    .addOnSuccessListener {
+                                        workout = it.toObject(WorkoutModel::class.java)!!
+                                        updateRecycler(3)
+                                        Toast.makeText(context, "Exercise Deleted!", Toast.LENGTH_SHORT).show()
+                                    }
+                        }
+            }
+            4->{
+                db.collection("workouts").document(workoutID).update("day4Exercises", FieldValue.arrayRemove(exerciseName))
+                        .addOnSuccessListener {
+                            db.collection("workouts").document(workoutID).get()
+                                    .addOnSuccessListener {
+                                        workout = it.toObject(WorkoutModel::class.java)!!
+                                        updateRecycler(4)
+                                        Toast.makeText(context, "Exercise Deleted!", Toast.LENGTH_SHORT).show()
+                                    }
+                        }
+            }
+            5->{
+                db.collection("workouts").document(workoutID).update("day5Exercises", FieldValue.arrayRemove(exerciseName))
+                        .addOnSuccessListener {
+                            db.collection("workouts").document(workoutID).get()
+                                    .addOnSuccessListener {
+                                        workout = it.toObject(WorkoutModel::class.java)!!
+                                        updateRecycler(5)
+                                        Toast.makeText(context, "Exercise Deleted!", Toast.LENGTH_SHORT).show()
+                                    }
+                        }
+            }
+            6->{
+                db.collection("workouts").document(workoutID).update("day6Exercises", FieldValue.arrayRemove(exerciseName))
+                        .addOnSuccessListener {
+                            db.collection("workouts").document(workoutID).get()
+                                    .addOnSuccessListener {
+                                        workout = it.toObject(WorkoutModel::class.java)!!
+                                        updateRecycler(6)
+                                        Toast.makeText(context, "Exercise Deleted!", Toast.LENGTH_SHORT).show()
+                                    }
+                        }
+            }
+            7->{
+                db.collection("workouts").document(workoutID).update("day7Exercises", FieldValue.arrayRemove(exerciseName))
+                        .addOnSuccessListener {
+                            db.collection("workouts").document(workoutID).get()
+                                    .addOnSuccessListener {
+                                        workout = it.toObject(WorkoutModel::class.java)!!
+                                        updateRecycler(7)
+                                        Toast.makeText(context, "Exercise Deleted!", Toast.LENGTH_SHORT).show()
+                                    }
+                        }
+            }
+            else-> Toast.makeText(context, "Invalid day!", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onStart() {
