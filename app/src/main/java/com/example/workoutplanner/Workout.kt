@@ -68,61 +68,76 @@ class Workout : Fragment() {
             7 + (day - startingDay)
 
         if(workout.day1Exercises != null && workout.day2Exercises !=null&& workout.day3Exercises !=null&& workout.day4Exercises !=null&& workout.day5Exercises !=null&& workout.day6Exercises !=null&& workout.day7Exercises !=null) {
-            for (exerciseID in workout.day1Exercises) {
-                db.collection("exercises").document(exerciseID).get()
-                    .addOnSuccessListener {
-                        Days1.add(it.toObject(ExerciseModel::class.java)!!)
-                        if(temp==0)
-                            showDayWorkout(Days1, adapter, binding)
-                    }
+
+            if(workout.day1Exercises.isNotEmpty()) { //queries of whereIN dont support empty lists
+                db.collection("exercises").whereIn("name", workout.day1Exercises).get()
+                        .addOnSuccessListener {
+                            for (document in it) {
+                                Days1.add(document.toObject(ExerciseModel::class.java)!!)
+                            }
+                            if (temp == 0)
+                                showDayWorkout(Days1, adapter, binding)
+                        }
             }
-            for (exerciseID in workout.day2Exercises) {
-                db.collection("exercises").document(exerciseID).get()
-                    .addOnSuccessListener {
-                        Days2.add(it.toObject(ExerciseModel::class.java)!!)
-                        if(temp==1)
-                            showDayWorkout(Days2, adapter, binding)
-                    }
+            if(workout.day2Exercises.isNotEmpty()) {
+                db.collection("exercises").whereIn("name", workout.day2Exercises).get()
+                        .addOnSuccessListener {
+                            for (document in it) {
+                                Days2.add(document.toObject(ExerciseModel::class.java)!!)
+                            }
+                            if (temp == 1)
+                                showDayWorkout(Days2, adapter, binding)
+                        }
             }
-            for (exerciseID in workout.day3Exercises) {
-                db.collection("exercises").document(exerciseID).get()
-                    .addOnSuccessListener {
-                        Days3.add(it.toObject(ExerciseModel::class.java)!!)
-                        if(temp==2)
-                            showDayWorkout(Days3, adapter, binding)
-                    }
+            if(workout.day3Exercises.isNotEmpty()) {
+                db.collection("exercises").whereIn("name", workout.day3Exercises).get()
+                        .addOnSuccessListener {
+                            for (document in it) {
+                                Days3.add(document.toObject(ExerciseModel::class.java)!!)
+                            }
+                            if (temp == 2)
+                                showDayWorkout(Days3, adapter, binding)
+                        }
             }
-            for (exerciseID in workout.day4Exercises) {
-                db.collection("exercises").document(exerciseID).get()
-                    .addOnSuccessListener {
-                        Days4.add(it.toObject(ExerciseModel::class.java)!!)
-                        if(temp==3)
-                            showDayWorkout(Days4, adapter, binding)
-                    }
+            if(workout.day4Exercises.isNotEmpty()) {
+                db.collection("exercises").whereIn("name", workout.day4Exercises).get()
+                        .addOnSuccessListener {
+                            for (document in it) {
+                                Days4.add(document.toObject(ExerciseModel::class.java)!!)
+                            }
+                            if (temp == 3)
+                                showDayWorkout(Days4, adapter, binding)
+                        }
             }
-            for (exerciseID in workout.day5Exercises) {
-                db.collection("exercises").document(exerciseID).get()
-                    .addOnSuccessListener {
-                        Days5.add(it.toObject(ExerciseModel::class.java)!!)
-                        if(temp==4)
-                            showDayWorkout(Days5, adapter, binding)
-                    }
+            if(workout.day5Exercises.isNotEmpty()) {
+                db.collection("exercises").whereIn("name", workout.day5Exercises).get()
+                        .addOnSuccessListener {
+                            for (document in it) {
+                                Days5.add(document.toObject(ExerciseModel::class.java)!!)
+                            }
+                            if (temp == 4)
+                                showDayWorkout(Days5, adapter, binding)
+                        }
             }
-            for (exerciseID in workout.day6Exercises) {
-                db.collection("exercises").document(exerciseID).get()
-                    .addOnSuccessListener {
-                        Days6.add(it.toObject(ExerciseModel::class.java)!!)
-                        if(temp==5)
-                            showDayWorkout(Days6, adapter, binding)
-                    }
+            if(workout.day6Exercises.isNotEmpty()) {
+                db.collection("exercises").whereIn("name", workout.day6Exercises).get()
+                        .addOnSuccessListener {
+                            for (document in it) {
+                                Days6.add(document.toObject(ExerciseModel::class.java)!!)
+                            }
+                            if (temp == 5)
+                                showDayWorkout(Days6, adapter, binding)
+                        }
             }
-            for (exerciseID in workout.day7Exercises) {
-                db.collection("exercises").document(exerciseID).get()
-                    .addOnSuccessListener {
-                        Days7.add(it.toObject(ExerciseModel::class.java)!!)
-                        if(temp==6)
-                            showDayWorkout(Days7, adapter, binding)
-                    }
+            if(workout.day7Exercises.isNotEmpty()) {
+                db.collection("exercises").whereIn("name", workout.day7Exercises).get()
+                        .addOnSuccessListener {
+                            for (document in it) {
+                                Days7.add(document.toObject(ExerciseModel::class.java)!!)
+                            }
+                            if (temp == 6)
+                                showDayWorkout(Days7, adapter, binding)
+                        }
             }
         }
 

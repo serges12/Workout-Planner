@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 class WorkoutModel(
         val userID: String?=null,
         val name:String?=null,
-        val day1Exercises:List<String>? = null,
+        val day1Exercises:List<String>? = null, //these will contain names of exercises
         val day2Exercises:List<String>? = null,
         val day3Exercises:List<String>? = null,
         val day4Exercises:List<String>? = null,
