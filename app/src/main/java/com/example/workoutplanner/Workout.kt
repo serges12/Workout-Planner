@@ -5,12 +5,11 @@ import android.content.Intent
 import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat.invalidateOptionsMenu
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavOptions
@@ -31,6 +30,7 @@ class Workout : Fragment() {
     var exercisesAdapter: DailyExercisesRecylerViewAdapter? = null
     lateinit var workoutID: String
     private lateinit var workout: WorkoutModel
+    private var allowModifications: Boolean = false
 
     //new way to get result from activities (instead of startActivityForResult which is deprecated
     //see registerForActivityResult documentation here https://developer.android.com/training/basics/intents/result
@@ -52,15 +52,17 @@ class Workout : Fragment() {
             }
         }
     }
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_workout, container, false)
         workout= WorkoutArgs.fromBundle(requireArguments()).workoutModel
-
         workoutID = WorkoutArgs.fromBundle(requireArguments()).workoutID
-        val allowModifications: Boolean = WorkoutArgs.fromBundle(requireArguments()).allowModifications
+        allowModifications = WorkoutArgs.fromBundle(requireArguments()).allowModifications
         var startingDay: Int = WorkoutArgs.fromBundle(requireArguments()).startingDay
         var day: Int = WorkoutArgs.fromBundle(requireArguments()).currentDay
         var query: Query = db.collection("exercises").whereIn("name", mutableListOf("placeholder"))
@@ -104,8 +106,9 @@ class Workout : Fragment() {
 
         //if we're allowing adding/deleting exercises
         if(allowModifications) {
+            //show add exercise
             binding.addExerciseButton.visibility = View.VISIBLE
-
+            //getting an exercise from activity and adding it
             binding.addExerciseButton.setOnClickListener {
                 //we want to launch getActivity to get an exercise to then add it
                 getExerciseResultContract.launch(Intent(context, GetExerciseActivity::class.java))
@@ -138,11 +141,9 @@ class Workout : Fragment() {
                         }
                 val alert = dialogBuilder.create()
                 alert.show()
-
-
-
-
             }
+            //sharing exercise
+
         }
 
         binding.chipGroup.setOnCheckedChangeListener{group, checkedId ->
@@ -161,6 +162,33 @@ class Workout : Fragment() {
         return binding.root
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_workout_details_fragment, menu)
+        //only show share if we allow modification
+        //only share workouts from custom workouts
+        if(allowModifications){
+            val shareButton = menu.findItem(R.id.menuButtonShare)
+            shareButton.isVisible = true
+        }
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.menuButtonShare) {
+            //make intent to share score here
+            Intent(Intent.ACTION_SEND).apply {
+                type = "text/plain"
+                putExtra(
+                    Intent.EXTRA_TEXT,
+                    ("Check out this custom workout I created in the Workout Planner app!\nYou can add it to your workouts by " +
+                            "pasting the ID below in the add button on your custom workout screen\n" + workoutID)
+                )
+            }.also {
+                startActivity(it)
+            }
+        }
+        return super.onOptionsItemSelected(item) //if we don't add this line, the back button doesn't work because we're overriding this function
+    }
     private fun updateRecycler(dayNumber: Int){
         var listToQuery = when(dayNumber){
             1->workout.day1Exercises!!.toMutableList()

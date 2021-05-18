@@ -2,6 +2,7 @@ package com.example.workoutplanner
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
@@ -23,7 +24,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         drawerLayout = binding.drawerLayout
-
         val navController = this.findNavController(R.id.myNavHostFragment)
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
         NavigationUI.setupWithNavController(binding.navView, navController)
@@ -81,7 +81,6 @@ class MainActivity : AppCompatActivity() {
             super.onBackPressed()
         }
     }
-
 //    override fun onOptionsItemSelected(item: MenuItem): Boolean {
 //        // Handle item selection
 //        return when (item.itemId) {

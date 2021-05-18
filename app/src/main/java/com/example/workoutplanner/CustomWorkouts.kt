@@ -4,10 +4,8 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -28,6 +26,10 @@ class CustomWorkouts : Fragment() {
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
     var customWorkoutsAdapter: WorkoutRecyclerViewAdapter? = null
     private lateinit var recyclerView: RecyclerView
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,7 +37,7 @@ class CustomWorkouts : Fragment() {
         val binding: FragmentCustomWorkoutsBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_custom_workouts, container, false)
         (activity as AppCompatActivity).supportActionBar?.title = "Custom Workouts"
         binding.addWorkoutButton.setOnClickListener{
-            showdialog()
+            showAddWorkoutdialog()
         }
 
         //setting up recyclerview
@@ -101,7 +103,18 @@ class CustomWorkouts : Fragment() {
         customWorkoutsAdapter!!.stopListening()
     }
 
-    fun showdialog(){
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_custom_workouts_fragment, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.menuAddWorkoutByID) {
+            //add workout by ID
+            showAddWorkoutByIdDialog()
+        }
+        return super.onOptionsItemSelected(item) //if we don't add this line, the back button doesn't work because we're overriding this function
+    }
+    fun showAddWorkoutdialog(){
         val builder: AlertDialog.Builder = androidx.appcompat.app.AlertDialog.Builder(requireContext())
         builder.setTitle("Custom Workout Title")
 
@@ -129,6 +142,46 @@ class CustomWorkouts : Fragment() {
                     .addOnFailureListener{
                         Toast.makeText(context, "Error: "+it.message, Toast.LENGTH_SHORT).show()
                     }
+        })
+        builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+
+        builder.show()
+    }
+    fun showAddWorkoutByIdDialog(){
+        val builder: AlertDialog.Builder = androidx.appcompat.app.AlertDialog.Builder(requireContext())
+        builder.setTitle("Add Workout By ID")
+
+        // Set up the input
+        val input = EditText(requireContext())
+        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+        input.setHint("Enter Workout ID")
+        input.inputType = InputType.TYPE_CLASS_TEXT
+        builder.setView(input)
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
+            // Here you get get input text from the Edittext
+            var workoutID = input.text.toString()
+            db.collection("workouts").document(workoutID).get()
+                .addOnSuccessListener {
+                    //we got the workout, lets add it to the current user
+                    val retrievedWorkout: WorkoutModel = it.toObject(WorkoutModel::class.java)!!
+                    val workoutToAdd: WorkoutModel = WorkoutModel(
+                    FirebaseAuth.getInstance().uid,
+                    retrievedWorkout.name,
+                    retrievedWorkout.day1Exercises, retrievedWorkout.day2Exercises,retrievedWorkout.day3Exercises,retrievedWorkout.day4Exercises,retrievedWorkout.day5Exercises,retrievedWorkout.day6Exercises,retrievedWorkout.day7Exercises
+                    )
+                    db.collection("workouts").add(workoutToAdd)
+                        .addOnSuccessListener {
+                            Toast.makeText(context, "Success!", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener{
+                            Toast.makeText(context, "Error: "+it.message, Toast.LENGTH_SHORT).show()
+                        }
+                }
+                .addOnFailureListener{
+                    Toast.makeText(context, "Error:" + it.message, Toast.LENGTH_SHORT).show()
+                }
         })
         builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
 
