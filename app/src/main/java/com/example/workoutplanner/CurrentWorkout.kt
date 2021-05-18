@@ -58,7 +58,8 @@ class CurrentWorkout : Fragment() {
                                                     it.toObject(WorkoutModel::class.java)!!,
                                                     startingDay,
                                                     false,
-                                                    currentWorkoutID
+                                                    currentWorkoutID,
+                                                    Calendar.getInstance().time.day
                                             )
                                     )
                                 }

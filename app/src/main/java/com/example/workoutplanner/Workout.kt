@@ -27,7 +27,6 @@ class Workout : Fragment() {
     lateinit var binding: FragmentWorkoutBinding
     var exercisesAdapter: DailyExercisesRecylerViewAdapter? = null
     private lateinit var workout: WorkoutModel
-    var day = Calendar.getInstance().time.day
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -36,9 +35,8 @@ class Workout : Fragment() {
 
         val workoutID: String = WorkoutArgs.fromBundle(requireArguments()).workoutID
         val allowModifications: Boolean = WorkoutArgs.fromBundle(requireArguments()).allowModifications
-        val startingDay: Int = WorkoutArgs.fromBundle(requireArguments()).startingDay
-
-
+        var startingDay: Int = WorkoutArgs.fromBundle(requireArguments()).startingDay
+        var day: Int = WorkoutArgs.fromBundle(requireArguments()).currentDay
         var query: Query = db.collection("exercises").whereIn("name", mutableListOf("placeholder"))
 
         var firestoreRecyclerOptions: FirestoreRecyclerOptions<ExerciseModel> = FirestoreRecyclerOptions.Builder<ExerciseModel>()
@@ -71,7 +69,7 @@ class Workout : Fragment() {
         else
             7 + (day - startingDay)
 
-        updateRecycler(temp)
+        updateRecycler(temp+1)
 
         exercisesAdapter!!.onItemClick = {
             view?.findNavController()?.navigate(WorkoutDirections.actionWorkoutToExercise(it))

@@ -38,7 +38,7 @@ class Workouts : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = workoutsAdapter
         workoutsAdapter!!.onItemClick = {
-            view?.findNavController()?.navigate(WorkoutsDirections.actionWorkoutsToWorkout(it.toObject(WorkoutModel::class.java)!!, 1, false, it.id))//starting day is 1 if we only wana see details
+            view?.findNavController()?.navigate(WorkoutsDirections.actionWorkoutsToWorkout(it.toObject(WorkoutModel::class.java)!!, 1, false, it.id,1))//starting day is 1 if we only wana see details
         }
         workoutsAdapter!!.onMakeCurrenntWorkoutClick = {
             //make this the current workout of the user

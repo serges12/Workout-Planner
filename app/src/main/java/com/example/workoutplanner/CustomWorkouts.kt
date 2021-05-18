@@ -49,7 +49,7 @@ class CustomWorkouts : Fragment() {
         recyclerView.adapter = customWorkoutsAdapter
 
         customWorkoutsAdapter!!.onItemClick = {
-            view?.findNavController()?.navigate(CustomWorkoutsDirections.actionCustomWorkoutToWorkout(it.toObject(WorkoutModel::class.java)!!, 1, true, it.id))//starting day is 1 if we only wana see details
+            view?.findNavController()?.navigate(CustomWorkoutsDirections.actionCustomWorkoutToWorkout(it.toObject(WorkoutModel::class.java)!!, 1, true, it.id, 1))//starting day is 1 if we only wana see details
         }
         customWorkoutsAdapter!!.onLongItemClick = {
             val dialogBuilder = android.app.AlertDialog.Builder(context)

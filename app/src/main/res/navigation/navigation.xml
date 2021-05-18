@@ -79,5 +79,8 @@
         <argument
             android:name="workoutID"
             app:argType="string" />
+        <argument
+            android:name="currentDay"
+            app:argType="integer" />
     </fragment>
 </navigation>
