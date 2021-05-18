@@ -33,20 +33,13 @@ class Workout : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_workout, container, false)
         workout= WorkoutArgs.fromBundle(requireArguments()).workoutModel
+
         val workoutID: String = WorkoutArgs.fromBundle(requireArguments()).workoutID
         val allowModifications: Boolean = WorkoutArgs.fromBundle(requireArguments()).allowModifications
         val startingDay: Int = WorkoutArgs.fromBundle(requireArguments()).startingDay
 
-        Log.i("test",binding.chipGroup.checkedChipId.toString())
 
-        var listToQuery: MutableList<String>
-        if(workout.day1Exercises!!.isNotEmpty()){
-            listToQuery = workout!!.day1Exercises!!.toMutableList()
-        }
-        else{
-            listToQuery = mutableListOf("placeholder")
-        }
-        var query: Query = db.collection("exercises").whereIn("name", workout.day1Exercises!!.toList())
+        var query: Query = db.collection("exercises").whereIn("name", mutableListOf("placeholder"))
 
         var firestoreRecyclerOptions: FirestoreRecyclerOptions<ExerciseModel> = FirestoreRecyclerOptions.Builder<ExerciseModel>()
                 .setQuery(query, ExerciseModel::class.java)
@@ -78,8 +71,7 @@ class Workout : Fragment() {
         else
             7 + (day - startingDay)
 
-
-
+        updateRecycler(temp)
 
         exercisesAdapter!!.onItemClick = {
             view?.findNavController()?.navigate(WorkoutDirections.actionWorkoutToExercise(it))
@@ -131,8 +123,6 @@ class Workout : Fragment() {
             }
         }
 
-        Log.i("test",binding.chipGroup.checkedChipId.toString() + " " +binding.chip1.id.toString())
-
         return binding.root
     }
 
@@ -162,6 +152,7 @@ class Workout : Fragment() {
                 .build()
         exercisesAdapter!!.updateOptions(firestoreRecyclerOptions)
     }
+
     override fun onStart() {
         super.onStart()
         exercisesAdapter!!.startListening()
