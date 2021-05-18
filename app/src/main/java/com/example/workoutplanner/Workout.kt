@@ -13,41 +13,52 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.workoutplanner.databinding.FragmentWorkoutBinding
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.android.material.chip.Chip
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import java.util.*
 
 class Workout : Fragment() {
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
     lateinit var binding: FragmentWorkoutBinding
+    var exercisesAdapter: DailyExercisesRecylerViewAdapter? = null
+    private lateinit var workout: WorkoutModel
     var day = Calendar.getInstance().time.day
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_workout, container, false)
-        val workout: WorkoutModel = WorkoutArgs.fromBundle(requireArguments()).workoutModel
+        workout= WorkoutArgs.fromBundle(requireArguments()).workoutModel
         val workoutID: String = WorkoutArgs.fromBundle(requireArguments()).workoutID
         val allowModifications: Boolean = WorkoutArgs.fromBundle(requireArguments()).allowModifications
         val startingDay: Int = WorkoutArgs.fromBundle(requireArguments()).startingDay
 
         Log.i("test",binding.chipGroup.checkedChipId.toString())
 
+        var listToQuery: MutableList<String>
+        if(workout.day1Exercises!!.isNotEmpty()){
+            listToQuery = workout!!.day1Exercises!!.toMutableList()
+        }
+        else{
+            listToQuery = mutableListOf("placeholder")
+        }
+        var query: Query = db.collection("exercises").whereIn("name", workout.day1Exercises!!.toList())
 
-        val adapter = DailyExercisesRecylerViewAdapter()
+        var firestoreRecyclerOptions: FirestoreRecyclerOptions<ExerciseModel> = FirestoreRecyclerOptions.Builder<ExerciseModel>()
+                .setQuery(query, ExerciseModel::class.java)
+                .build()
+
+        exercisesAdapter = DailyExercisesRecylerViewAdapter(firestoreRecyclerOptions)
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
-        binding.recyclerView.adapter = adapter
-        val workoutName = workout.name
-        var Days1: MutableList<ExerciseModel> = mutableListOf<ExerciseModel>()
-        var Days2: MutableList<ExerciseModel> = mutableListOf<ExerciseModel>()
-        var Days3: MutableList<ExerciseModel> = mutableListOf<ExerciseModel>()
-        var Days4: MutableList<ExerciseModel> = mutableListOf<ExerciseModel>()
-        var Days5: MutableList<ExerciseModel> = mutableListOf<ExerciseModel>()
-        var Days6: MutableList<ExerciseModel> = mutableListOf<ExerciseModel>()
-        var Days7: MutableList<ExerciseModel> = mutableListOf<ExerciseModel>()
+        binding.recyclerView.adapter = exercisesAdapter
 
-        //now the lists Days1, Days2... Days7 contain exercises for each day
+        //set current workout name
+        binding.WorkoutNameText.text = workout.name
+
         //store in database the starting day and generate names based on that starting day
         //set starting day
         var temp = startingDay
@@ -67,125 +78,57 @@ class Workout : Fragment() {
         else
             7 + (day - startingDay)
 
-        if(workout.day1Exercises != null && workout.day2Exercises !=null&& workout.day3Exercises !=null&& workout.day4Exercises !=null&& workout.day5Exercises !=null&& workout.day6Exercises !=null&& workout.day7Exercises !=null) {
 
-            if(workout.day1Exercises.isNotEmpty()) { //queries of whereIN dont support empty lists
-                db.collection("exercises").whereIn("name", workout.day1Exercises).get()
-                        .addOnSuccessListener {
-                            for (document in it) {
-                                Days1.add(document.toObject(ExerciseModel::class.java)!!)
-                            }
-                            if (temp == 0)
-                                showDayWorkout(Days1, adapter, binding)
-                        }
-            }
-            if(workout.day2Exercises.isNotEmpty()) {
-                db.collection("exercises").whereIn("name", workout.day2Exercises).get()
-                        .addOnSuccessListener {
-                            for (document in it) {
-                                Days2.add(document.toObject(ExerciseModel::class.java)!!)
-                            }
-                            if (temp == 1)
-                                showDayWorkout(Days2, adapter, binding)
-                        }
-            }
-            if(workout.day3Exercises.isNotEmpty()) {
-                db.collection("exercises").whereIn("name", workout.day3Exercises).get()
-                        .addOnSuccessListener {
-                            for (document in it) {
-                                Days3.add(document.toObject(ExerciseModel::class.java)!!)
-                            }
-                            if (temp == 2)
-                                showDayWorkout(Days3, adapter, binding)
-                        }
-            }
-            if(workout.day4Exercises.isNotEmpty()) {
-                db.collection("exercises").whereIn("name", workout.day4Exercises).get()
-                        .addOnSuccessListener {
-                            for (document in it) {
-                                Days4.add(document.toObject(ExerciseModel::class.java)!!)
-                            }
-                            if (temp == 3)
-                                showDayWorkout(Days4, adapter, binding)
-                        }
-            }
-            if(workout.day5Exercises.isNotEmpty()) {
-                db.collection("exercises").whereIn("name", workout.day5Exercises).get()
-                        .addOnSuccessListener {
-                            for (document in it) {
-                                Days5.add(document.toObject(ExerciseModel::class.java)!!)
-                            }
-                            if (temp == 4)
-                                showDayWorkout(Days5, adapter, binding)
-                        }
-            }
-            if(workout.day6Exercises.isNotEmpty()) {
-                db.collection("exercises").whereIn("name", workout.day6Exercises).get()
-                        .addOnSuccessListener {
-                            for (document in it) {
-                                Days6.add(document.toObject(ExerciseModel::class.java)!!)
-                            }
-                            if (temp == 5)
-                                showDayWorkout(Days6, adapter, binding)
-                        }
-            }
-            if(workout.day7Exercises.isNotEmpty()) {
-                db.collection("exercises").whereIn("name", workout.day7Exercises).get()
-                        .addOnSuccessListener {
-                            for (document in it) {
-                                Days7.add(document.toObject(ExerciseModel::class.java)!!)
-                            }
-                            if (temp == 6)
-                                showDayWorkout(Days7, adapter, binding)
-                        }
-            }
-        }
 
-        var workoutDays = listOf(Days1,Days2,Days3,Days4,Days5,Days6,Days7)
 
-        //set current workout name
-        binding.WorkoutNameText.text = workoutName
-
-        adapter.onItemClick = {
+        exercisesAdapter!!.onItemClick = {
             view?.findNavController()?.navigate(WorkoutDirections.actionWorkoutToExercise(it))
         }
 
         //if we're allowing adding/deleting exercises
-        if(allowModifications){
-            binding.addExerciseButton.visibility = View.VISIBLE
-
-            binding.addExerciseButton.setOnClickListener{view:View->
-
-            }
-            adapter.onLongItemClick = {exercise->
-                db.collection("exercises").whereEqualTo("name", exercise.name).get()
-                        .addOnSuccessListener { snapshot->
-                            val exerciseID = snapshot.documents[0].id
-
-                            val checkedChipID = binding.chipGroup.checkedChipId
-                            val arrayName = "day"+((checkedChipID - R.id.chip1)+1).toString()+"Exercises"
-
-
-                            db.collection("workouts").document(workoutID).update(arrayName, FieldValue.arrayRemove(exerciseID))
-                                    .addOnSuccessListener {
-                                        workoutDays[checkedChipID - R.id.chip1].remove(exercise)
-                                        showDayWorkout(workoutDays[checkedChipID - R.id.chip1], adapter, binding)
-                                        Toast.makeText(context, "Exercise Removed.", Toast.LENGTH_SHORT).show()
-                                    }
-                                    .addOnFailureListener{
-                                        Toast.makeText(context, "Error: "+it.message, Toast.LENGTH_SHORT).show()
-                                    }
-                        }
-                        .addOnFailureListener{
-                            Toast.makeText(context, "Error: "+it.message, Toast.LENGTH_SHORT).show()
-                        }
-            }
-
-        }
+//        if(allowModifications){
+//            binding.addExerciseButton.visibility = View.VISIBLE
+//
+//            binding.addExerciseButton.setOnClickListener{view:View->
+//
+//            }
+//            exercisesAdapter!!.onLongItemClick = {exercise->
+//                db.collection("exercises").whereEqualTo("name", exercise.name).get()
+//                        .addOnSuccessListener { snapshot->
+//                            val exerciseID = snapshot.documents[0].id
+//
+//                            val checkedChipID = binding.chipGroup.checkedChipId
+//                            val arrayName = "day"+((checkedChipID - R.id.chip1)+1).toString()+"Exercises"
+//
+//
+//                            db.collection("workouts").document(workoutID).update(arrayName, FieldValue.arrayRemove(exerciseID))
+//                                    .addOnSuccessListener {
+//                                        workoutDays[checkedChipID - R.id.chip1].remove(exercise)
+//                                        showDayWorkout(workoutDays[checkedChipID - R.id.chip1], exercisesAdapter, binding)
+//                                        Toast.makeText(context, "Exercise Removed.", Toast.LENGTH_SHORT).show()
+//                                    }
+//                                    .addOnFailureListener{
+//                                        Toast.makeText(context, "Error: "+it.message, Toast.LENGTH_SHORT).show()
+//                                    }
+//                        }
+//                        .addOnFailureListener{
+//                            Toast.makeText(context, "Error: "+it.message, Toast.LENGTH_SHORT).show()
+//                        }
+//            }
+//
+//        }
 
         binding.chipGroup.setOnCheckedChangeListener{group, checkedId ->
-            val exercisesList: MutableList<ExerciseModel> = workoutDays[checkedId - R.id.chip1]
-            showDayWorkout(exercisesList, adapter, binding)
+            when(checkedId){
+                R.id.chip1->updateRecycler(1)
+                R.id.chip2->updateRecycler(2)
+                R.id.chip3->updateRecycler(3)
+                R.id.chip4->updateRecycler(4)
+                R.id.chip5->updateRecycler(5)
+                R.id.chip6->updateRecycler(6)
+                R.id.chip7->updateRecycler(7)
+                else->updateRecycler(1)
+            }
         }
 
         Log.i("test",binding.chipGroup.checkedChipId.toString() + " " +binding.chip1.id.toString())
@@ -193,24 +136,40 @@ class Workout : Fragment() {
         return binding.root
     }
 
-    private fun showDayWorkout(exercisesList: MutableList<ExerciseModel>, adapter: DailyExercisesRecylerViewAdapter, binding: FragmentWorkoutBinding){
-//        val chip = binding.chipGroup.getChildAt(1) as Chip
-//        chip.isChecked = true
-//        Toast.makeText(context, binding.chipGroup.checkedChipId.toString(), Toast.LENGTH_SHORT).show()
-        binding.restDayText.isVisible = exercisesList.size == 0
-
-        adapter.setData(exercisesList.toList())
+    private fun updateRecycler(dayNumber: Int){
+        var listToQuery = when(dayNumber){
+            1->workout.day1Exercises!!.toMutableList()
+            2->workout.day2Exercises!!.toMutableList()
+            3->workout.day3Exercises!!.toMutableList()
+            4->workout.day4Exercises!!.toMutableList()
+            5->workout.day5Exercises!!.toMutableList()
+            6->workout.day6Exercises!!.toMutableList()
+            7->workout.day7Exercises!!.toMutableList()
+            else->workout.day1Exercises!!.toMutableList()
+        }
+        if (listToQuery.isEmpty()){
+            listToQuery.add("placeholder") //we have to do this because firebase doesnt handle querying empty lists
+            //if list is empty, that means no exercises for the day, so we show the REST DAY text
+            binding.restDayText.visibility = View.VISIBLE
+        }
+        else{
+            //list is not empty
+            binding.restDayText.visibility = View.INVISIBLE
+        }
+        var query: Query = db.collection("exercises").whereIn("name", listToQuery)
+        var firestoreRecyclerOptions: FirestoreRecyclerOptions<ExerciseModel> = FirestoreRecyclerOptions.Builder<ExerciseModel>()
+                .setQuery(query, ExerciseModel::class.java)
+                .build()
+        exercisesAdapter!!.updateOptions(firestoreRecyclerOptions)
+    }
+    override fun onStart() {
+        super.onStart()
+        exercisesAdapter!!.startListening()
     }
 
-    //to make sure the right chip is checked on resume
-    override fun onPause() {
-        val chip: Chip = binding.chipGroup.getChildAt(day-1) as Chip
-        chip.isChecked = true
-        super.onPause()
+    override fun onStop() {
+        super.onStop()
+        exercisesAdapter!!.stopListening()
     }
-//
-//    override fun onResume() {
-//        Log.i("test", "On resume")
-//        super.onResume()
-//    }
+
 }

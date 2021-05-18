@@ -5,27 +5,28 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import kotlinx.android.synthetic.main.exercise_layout.view.*
 
-class DailyExercisesRecylerViewAdapter: RecyclerView.Adapter<DailyExercisesRecylerViewAdapter.ViewHolder>() {
-        var exercisesList = emptyList<ExerciseModel>()
+class DailyExercisesRecylerViewAdapter(options: FirestoreRecyclerOptions<ExerciseModel>): FirestoreRecyclerAdapter<ExerciseModel, DailyExercisesRecylerViewAdapter.ViewHolder>(options) {
+
         var onItemClick: ((ExerciseModel) -> Unit)? = null
         var onLongItemClick: ((ExerciseModel) -> Unit)? = null
 
-    override fun onBindViewHolder(holder: DailyExercisesRecylerViewAdapter.ViewHolder, position: Int) {
-        val entry = exercisesList[position]
-        holder.itemView.exerciseName.text = entry.name
-        holder.itemView.exerciseImage.load(entry.imageLink)
+    override fun onBindViewHolder(holder: DailyExercisesRecylerViewAdapter.ViewHolder, position: Int, model: ExerciseModel) {
+        holder.itemView.exerciseName.text = model.name
+        holder.itemView.exerciseImage.load(model.imageLink)
     }
 
-    inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
+    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
 
         init {
-            view.setOnClickListener{
-                onItemClick?.invoke(exercisesList[adapterPosition])
+            itemView.setOnClickListener{
+                onItemClick?.invoke(snapshots.getSnapshot(layoutPosition).toObject(ExerciseModel::class.java)!!)
             }
-            view.setOnLongClickListener{
-                onLongItemClick?.invoke(exercisesList[adapterPosition])
+            itemView.setOnLongClickListener{
+                onLongItemClick?.invoke(snapshots.getSnapshot(layoutPosition).toObject(ExerciseModel::class.java)!!)
                 true
             }
         }
@@ -34,18 +35,5 @@ class DailyExercisesRecylerViewAdapter: RecyclerView.Adapter<DailyExercisesRecyl
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.exercise_layout,parent,false))
     }
-
-    override fun getItemCount(): Int {
-        return exercisesList.size
-
-    }
-
-
-
-    fun setData(exercises:List<ExerciseModel>){
-        exercisesList = exercises
-        notifyDataSetChanged()
-    }
-
 
 }
