@@ -49,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Muscle"
-                android:textColor="#403E3E"
+                android:textColor="#000000"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 

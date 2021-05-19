@@ -159,28 +159,38 @@ class CustomWorkouts : Fragment() {
 
         // Set up the buttons
         builder.setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
-            // Here you get get input text from the Edittext
-            var workoutID = input.text.toString()
-            db.collection("workouts").document(workoutID).get()
-                .addOnSuccessListener {
-                    //we got the workout, lets add it to the current user
-                    val retrievedWorkout: WorkoutModel = it.toObject(WorkoutModel::class.java)!!
-                    val workoutToAdd: WorkoutModel = WorkoutModel(
-                    FirebaseAuth.getInstance().uid,
-                    retrievedWorkout.name,
-                    retrievedWorkout.day1Exercises, retrievedWorkout.day2Exercises,retrievedWorkout.day3Exercises,retrievedWorkout.day4Exercises,retrievedWorkout.day5Exercises,retrievedWorkout.day6Exercises,retrievedWorkout.day7Exercises
-                    )
-                    db.collection("workouts").add(workoutToAdd)
+            if (input.text.toString().trim().isEmpty()){
+                Toast.makeText(context, "Workout ID can't be blank", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                // Here you get get input text from the Edittext
+                var workoutID = input.text.toString()
+                db.collection("workouts").document(workoutID).get()
                         .addOnSuccessListener {
-                            Toast.makeText(context, "Success!", Toast.LENGTH_SHORT).show()
+                            if(it.data != null) {
+                                //we got the workout, lets add it to the current user
+                                val retrievedWorkout: WorkoutModel = it.toObject(WorkoutModel::class.java)!!
+                                val workoutToAdd: WorkoutModel = WorkoutModel(
+                                        FirebaseAuth.getInstance().uid,
+                                        retrievedWorkout.name,
+                                        retrievedWorkout.day1Exercises, retrievedWorkout.day2Exercises, retrievedWorkout.day3Exercises, retrievedWorkout.day4Exercises, retrievedWorkout.day5Exercises, retrievedWorkout.day6Exercises, retrievedWorkout.day7Exercises
+                                )
+                                db.collection("workouts").add(workoutToAdd)
+                                        .addOnSuccessListener {
+                                            Toast.makeText(context, "Success!", Toast.LENGTH_SHORT).show()
+                                        }
+                                        .addOnFailureListener {
+                                            Toast.makeText(context, "Error: " + it.message, Toast.LENGTH_SHORT).show()
+                                        }
+                            }
+                            else{// workout was not found
+                                Toast.makeText(context, "Error: Workout not found!", Toast.LENGTH_SHORT).show()
+                            }
                         }
-                        .addOnFailureListener{
-                            Toast.makeText(context, "Error: "+it.message, Toast.LENGTH_SHORT).show()
+                        .addOnFailureListener {
+                            Toast.makeText(context, "Error:" + it.message, Toast.LENGTH_SHORT).show()
                         }
-                }
-                .addOnFailureListener{
-                    Toast.makeText(context, "Error:" + it.message, Toast.LENGTH_SHORT).show()
-                }
+            }
         })
         builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, _ -> dialog.cancel() })
 

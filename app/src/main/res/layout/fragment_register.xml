@@ -107,18 +107,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/goToLogin" />
 
-            <Button
-                android:id="@+id/googleRegisterButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Register With Google"
-                app:icon="@drawable/ic_google_icon"
-                app:iconTintMode="multiply"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/RegisterButton" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

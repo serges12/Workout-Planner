@@ -22,6 +22,7 @@ class GetExerciseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_get_exercise)
+        supportActionBar?.title = "Select Exercise"
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
         var exercises: MutableList<ExerciseModel> = mutableListOf()
