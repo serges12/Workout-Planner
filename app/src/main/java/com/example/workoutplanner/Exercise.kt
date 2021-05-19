@@ -1,6 +1,5 @@
 package com.example.workoutplanner
 
-import android.R
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater

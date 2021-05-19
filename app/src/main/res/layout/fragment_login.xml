@@ -32,6 +32,17 @@
             app:layout_constraintTop_toBottomOf="@id/textView"
             app:layout_constraintVertical_bias="1.0">
 
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Login"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toTopOf="@+id/emailInputLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/emailInputLayout"
                 android:layout_width="match_parent"
@@ -98,6 +109,18 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/goToRegister" />
+
+            <Button
+                android:id="@+id/loginWithGoogleButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Login With Google"
+                app:icon="@drawable/ic_google_icon"
+                app:iconTintMode="multiply"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/LoginButton" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

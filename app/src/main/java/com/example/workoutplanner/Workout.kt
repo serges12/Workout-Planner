@@ -2,27 +2,21 @@ package com.example.workoutplanner
 
 import android.app.Activity
 import android.content.Intent
-import android.opengl.Visibility
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat.invalidateOptionsMenu
-import androidx.core.view.isVisible
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.workoutplanner.databinding.FragmentWorkoutBinding
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.android.material.chip.Chip
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import java.util.*
 
 class Workout : Fragment() {
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
@@ -77,6 +71,7 @@ class Workout : Fragment() {
 
         //set current workout name
         binding.WorkoutNameText.text = workout.name
+        (activity as AppCompatActivity).supportActionBar?.title = workout.name
 
         //store in database the starting day and generate names based on that starting day
         //set starting day
@@ -122,11 +117,11 @@ class Workout : Fragment() {
                         .setTitle("Remove?")
                         .setMessage("You are about to remove this exercise. Proceed?")
                         .setNegativeButton("No"){
-                            dialogInterface, i ->
+                            dialogInterface, _ ->
                             dialogInterface.cancel()
                         }
                         .setPositiveButton("Yes"){
-                            dialogInterface, i ->
+                            _, _ ->
                             //Handle Delete here
                             when(binding.chipGroup.checkedChipId){
                                 R.id.chip1->deleteExercise(1, exercise.name!!)
@@ -146,7 +141,7 @@ class Workout : Fragment() {
 
         }
 
-        binding.chipGroup.setOnCheckedChangeListener{group, checkedId ->
+        binding.chipGroup.setOnCheckedChangeListener{_, checkedId ->
             when(checkedId){
                 R.id.chip1->updateRecycler(1)
                 R.id.chip2->updateRecycler(2)
@@ -218,82 +213,82 @@ class Workout : Fragment() {
 
     private fun addExercise(dayNumber: Int, exerciseName: String){
         when(dayNumber){
-            1->{
+            1-> {
                 db.collection("workouts").document(workoutID).update("day1Exercises", FieldValue.arrayUnion(exerciseName))
-                    .addOnSuccessListener {
-                        db.collection("workouts").document(workoutID).get()
-                            .addOnSuccessListener {
-                                workout = it.toObject(WorkoutModel::class.java)!!
-                                updateRecycler(1)
-                                Toast.makeText(context, "Exercise Added!", Toast.LENGTH_SHORT).show()
-                            }
-                    }
+                        .addOnSuccessListener {
+                            workout.day1Exercises!!.add(exerciseName)
+                            updateRecycler(1)
+                            Toast.makeText(context, "Exercise Added!", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener {
+                            showError(it)
+                        }
             }
-            2->{
+            2-> {
                 db.collection("workouts").document(workoutID).update("day2Exercises", FieldValue.arrayUnion(exerciseName))
-                    .addOnSuccessListener {
-                        db.collection("workouts").document(workoutID).get()
-                            .addOnSuccessListener {
-                                workout = it.toObject(WorkoutModel::class.java)!!
-                                updateRecycler(2)
-                                Toast.makeText(context, "Exercise Added!", Toast.LENGTH_SHORT).show()
-                            }
-                    }
+                        .addOnSuccessListener {
+                            workout.day2Exercises!!.add(exerciseName)
+                            updateRecycler(2)
+                            Toast.makeText(context, "Exercise Added!", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener {
+                            showError(it)
+                        }
             }
-            3->{
+            3-> {
                 db.collection("workouts").document(workoutID).update("day3Exercises", FieldValue.arrayUnion(exerciseName))
-                    .addOnSuccessListener {
-                        db.collection("workouts").document(workoutID).get()
-                            .addOnSuccessListener {
-                                workout = it.toObject(WorkoutModel::class.java)!!
-                                updateRecycler(3)
-                                Toast.makeText(context, "Exercise Added!", Toast.LENGTH_SHORT).show()
-                            }
-                    }
+                        .addOnSuccessListener {
+                            workout.day3Exercises!!.add(exerciseName)
+                            updateRecycler(3)
+                            Toast.makeText(context, "Exercise Added!", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener {
+                            showError(it)
+                        }
             }
-            4->{
+            4-> {
                 db.collection("workouts").document(workoutID).update("day4Exercises", FieldValue.arrayUnion(exerciseName))
-                    .addOnSuccessListener {
-                        db.collection("workouts").document(workoutID).get()
-                            .addOnSuccessListener {
-                                workout = it.toObject(WorkoutModel::class.java)!!
-                                updateRecycler(4)
-                                Toast.makeText(context, "Exercise Added!", Toast.LENGTH_SHORT).show()
-                            }
-                    }
+                        .addOnSuccessListener {
+                            workout.day4Exercises!!.add(exerciseName)
+                            updateRecycler(4)
+                            Toast.makeText(context, "Exercise Added!", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener {
+                            showError(it)
+                        }
             }
-            5->{
+            5-> {
                 db.collection("workouts").document(workoutID).update("day5Exercises", FieldValue.arrayUnion(exerciseName))
-                    .addOnSuccessListener {
-                        db.collection("workouts").document(workoutID).get()
-                            .addOnSuccessListener {
-                                workout = it.toObject(WorkoutModel::class.java)!!
-                                updateRecycler(5)
-                                Toast.makeText(context, "Exercise Added!", Toast.LENGTH_SHORT).show()
-                            }
-                    }
+                        .addOnSuccessListener {
+                            workout.day5Exercises!!.add(exerciseName)
+                            updateRecycler(5)
+                            Toast.makeText(context, "Exercise Added!", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener {
+                            showError(it)
+                        }
             }
-            6->{
+            6-> {
                 db.collection("workouts").document(workoutID).update("day6Exercises", FieldValue.arrayUnion(exerciseName))
-                    .addOnSuccessListener {
-                        db.collection("workouts").document(workoutID).get()
-                            .addOnSuccessListener {
-                                workout = it.toObject(WorkoutModel::class.java)!!
-                                updateRecycler(6)
-                                Toast.makeText(context, "Exercise Added!", Toast.LENGTH_SHORT).show()
-                            }
-                    }
+                        .addOnSuccessListener {
+                            workout.day6Exercises!!.add(exerciseName)
+                            updateRecycler(6)
+                            Toast.makeText(context, "Exercise Added!", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener {
+                            showError(it)
+                        }
             }
-            7->{
+            7-> {
                 db.collection("workouts").document(workoutID).update("day7Exercises", FieldValue.arrayUnion(exerciseName))
-                    .addOnSuccessListener {
-                        db.collection("workouts").document(workoutID).get()
-                            .addOnSuccessListener {
-                                workout = it.toObject(WorkoutModel::class.java)!!
-                                updateRecycler(7)
-                                Toast.makeText(context, "Exercise Added!", Toast.LENGTH_SHORT).show()
-                            }
-                    }
+                        .addOnSuccessListener {
+                            workout.day7Exercises!!.add(exerciseName)
+                            updateRecycler(7)
+                            Toast.makeText(context, "Exercise Added!", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener {
+                            showError(it)
+                        }
             }
             else-> Toast.makeText(context, "Invalid day!", Toast.LENGTH_SHORT).show()
         }
@@ -304,82 +299,86 @@ class Workout : Fragment() {
             1->{
                 db.collection("workouts").document(workoutID).update("day1Exercises", FieldValue.arrayRemove(exerciseName))
                         .addOnSuccessListener {
-                            db.collection("workouts").document(workoutID).get()
-                                    .addOnSuccessListener {
-                                        workout = it.toObject(WorkoutModel::class.java)!!
-                                        updateRecycler(1)
-                                        Toast.makeText(context, "Exercise Deleted!", Toast.LENGTH_SHORT).show()
-                                    }
+                            workout.day1Exercises!!.removeAll(listOf(exerciseName))
+                            updateRecycler(1)
+                            Toast.makeText(context, "Exercise Deleted!", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener {
+                            showError(it)
                         }
             }
             2->{
                 db.collection("workouts").document(workoutID).update("day2Exercises", FieldValue.arrayRemove(exerciseName))
                         .addOnSuccessListener {
-                            db.collection("workouts").document(workoutID).get()
-                                    .addOnSuccessListener {
-                                        workout = it.toObject(WorkoutModel::class.java)!!
-                                        updateRecycler(2)
-                                        Toast.makeText(context, "Exercise Deleted!", Toast.LENGTH_SHORT).show()
-                                    }
+                            workout.day1Exercises!!.removeAll(listOf(exerciseName))
+                            updateRecycler(1)
+                            Toast.makeText(context, "Exercise Deleted!", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener {
+                            showError(it)
                         }
             }
             3->{
                 db.collection("workouts").document(workoutID).update("day3Exercises", FieldValue.arrayRemove(exerciseName))
                         .addOnSuccessListener {
-                            db.collection("workouts").document(workoutID).get()
-                                    .addOnSuccessListener {
-                                        workout = it.toObject(WorkoutModel::class.java)!!
-                                        updateRecycler(3)
-                                        Toast.makeText(context, "Exercise Deleted!", Toast.LENGTH_SHORT).show()
-                                    }
+                            workout.day1Exercises!!.removeAll(listOf(exerciseName))
+                            updateRecycler(1)
+                            Toast.makeText(context, "Exercise Deleted!", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener {
+                            showError(it)
                         }
             }
             4->{
                 db.collection("workouts").document(workoutID).update("day4Exercises", FieldValue.arrayRemove(exerciseName))
                         .addOnSuccessListener {
-                            db.collection("workouts").document(workoutID).get()
-                                    .addOnSuccessListener {
-                                        workout = it.toObject(WorkoutModel::class.java)!!
-                                        updateRecycler(4)
-                                        Toast.makeText(context, "Exercise Deleted!", Toast.LENGTH_SHORT).show()
-                                    }
+                            workout.day1Exercises!!.removeAll(listOf(exerciseName))
+                            updateRecycler(1)
+                            Toast.makeText(context, "Exercise Deleted!", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener {
+                            showError(it)
                         }
             }
             5->{
                 db.collection("workouts").document(workoutID).update("day5Exercises", FieldValue.arrayRemove(exerciseName))
                         .addOnSuccessListener {
-                            db.collection("workouts").document(workoutID).get()
-                                    .addOnSuccessListener {
-                                        workout = it.toObject(WorkoutModel::class.java)!!
-                                        updateRecycler(5)
-                                        Toast.makeText(context, "Exercise Deleted!", Toast.LENGTH_SHORT).show()
-                                    }
+                            workout.day1Exercises!!.removeAll(listOf(exerciseName))
+                            updateRecycler(1)
+                            Toast.makeText(context, "Exercise Deleted!", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener {
+                            showError(it)
                         }
             }
             6->{
                 db.collection("workouts").document(workoutID).update("day6Exercises", FieldValue.arrayRemove(exerciseName))
                         .addOnSuccessListener {
-                            db.collection("workouts").document(workoutID).get()
-                                    .addOnSuccessListener {
-                                        workout = it.toObject(WorkoutModel::class.java)!!
-                                        updateRecycler(6)
-                                        Toast.makeText(context, "Exercise Deleted!", Toast.LENGTH_SHORT).show()
-                                    }
+                            workout.day1Exercises!!.removeAll(listOf(exerciseName))
+                            updateRecycler(1)
+                            Toast.makeText(context, "Exercise Deleted!", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener {
+                            showError(it)
                         }
             }
             7->{
                 db.collection("workouts").document(workoutID).update("day7Exercises", FieldValue.arrayRemove(exerciseName))
                         .addOnSuccessListener {
-                            db.collection("workouts").document(workoutID).get()
-                                    .addOnSuccessListener {
-                                        workout = it.toObject(WorkoutModel::class.java)!!
-                                        updateRecycler(7)
-                                        Toast.makeText(context, "Exercise Deleted!", Toast.LENGTH_SHORT).show()
-                                    }
+                            workout.day1Exercises!!.removeAll(listOf(exerciseName))
+                            updateRecycler(1)
+                            Toast.makeText(context, "Exercise Deleted!", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener {
+                            showError(it)
                         }
             }
             else-> Toast.makeText(context, "Invalid day!", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun showError(error: Exception){
+        Toast.makeText(context, "Error: "+error.message, Toast.LENGTH_SHORT).show()
     }
 
     override fun onStart() {

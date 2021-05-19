@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/currentWorkout"
-        android:name="com.example.workoutplanner.CurrentWorkout"
+        android:name="com.example.workoutplanner.Home"
         android:label="CurrentWorkout" >
         <action
             android:id="@+id/action_currentWorkout_to_workout"

@@ -9,17 +9,19 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.workoutplanner.databinding.ActivityGetExerciseBinding
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_get_exercise.*
 
 class GetExerciseActivity : AppCompatActivity() {
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
     val adapter = GetExerciseRecyclerViewAdapter()
+    private lateinit var binding: ActivityGetExerciseBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_get_exercise)
-
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_get_exercise)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
         var exercises: MutableList<ExerciseModel> = mutableListOf()

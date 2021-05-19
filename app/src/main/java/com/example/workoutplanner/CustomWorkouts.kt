@@ -1,7 +1,6 @@
 package com.example.workoutplanner
 
 import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.view.*
@@ -15,7 +14,6 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workoutplanner.databinding.FragmentCustomWorkoutsBinding
-import com.example.workoutplanner.databinding.FragmentWorkoutsBinding
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -59,11 +57,11 @@ class CustomWorkouts : Fragment() {
                     .setTitle("Delete?")
                     .setMessage("You are about to delete this workout. Proceed?")
                     .setNegativeButton("No"){
-                        dialogInterface, i ->
+                        dialogInterface, _ ->
                         dialogInterface.cancel()
                     }
                     .setPositiveButton("Yes"){
-                        dialogInterface, i ->
+                        _, _ ->
                         //Handle Delete here
                         it.reference.delete()
                                 .addOnSuccessListener {
@@ -80,7 +78,7 @@ class CustomWorkouts : Fragment() {
 
         customWorkoutsAdapter!!.onMakeCurrenntWorkoutClick = {
             //make this the current workout of the user
-            val user: UserModel = UserModel(it.id, Calendar.getInstance().time.day.toLong())
+            val user = UserModel(it.id, Calendar.getInstance().time.day.toLong())
             db.collection("users").document(FirebaseAuth.getInstance().uid!!).set(user)
                     .addOnSuccessListener {
                         Toast.makeText(context, "Sucess", Toast.LENGTH_SHORT).show()
@@ -117,7 +115,8 @@ class CustomWorkouts : Fragment() {
     fun showAddWorkoutdialog(){
         val builder: AlertDialog.Builder = androidx.appcompat.app.AlertDialog.Builder(requireContext())
         builder.setTitle("Custom Workout Title")
-
+        //Set warning message
+        builder.setMessage("Make sure the workout is safe and suitable to prevent injuries.")
         // Set up the input
         val input = EditText(requireContext())
         // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
@@ -126,7 +125,7 @@ class CustomWorkouts : Fragment() {
         builder.setView(input)
 
         // Set up the buttons
-        builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
+        builder.setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
             // Here you get get input text from the Edittext
             var title = input.text.toString()
             val workout: WorkoutModel = WorkoutModel(
@@ -143,7 +142,7 @@ class CustomWorkouts : Fragment() {
                         Toast.makeText(context, "Error: "+it.message, Toast.LENGTH_SHORT).show()
                     }
         })
-        builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+        builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, _ -> dialog.cancel() })
 
         builder.show()
     }
@@ -159,7 +158,7 @@ class CustomWorkouts : Fragment() {
         builder.setView(input)
 
         // Set up the buttons
-        builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
+        builder.setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
             // Here you get get input text from the Edittext
             var workoutID = input.text.toString()
             db.collection("workouts").document(workoutID).get()
@@ -183,7 +182,7 @@ class CustomWorkouts : Fragment() {
                     Toast.makeText(context, "Error:" + it.message, Toast.LENGTH_SHORT).show()
                 }
         })
-        builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+        builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, _ -> dialog.cancel() })
 
         builder.show()
     }

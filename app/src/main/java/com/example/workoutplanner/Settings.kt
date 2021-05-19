@@ -1,7 +1,6 @@
 package com.example.workoutplanner
 
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.example.workoutplanner.databinding.FragmentSettingsBinding
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 
 class Settings : Fragment() {
@@ -25,11 +23,11 @@ class Settings : Fragment() {
                 .setTitle("Log Out?")
                 .setMessage("You are about to be logged out. Are you sure you want to proceed?")
                 .setNegativeButton("No"){
-                    dialogInterface, i ->
+                    dialogInterface, _ ->
                         dialogInterface.cancel()
                 }
                 .setPositiveButton("Yes"){
-                    dialogInterface, i ->
+                    _, _ ->
                     //Handle Logout here
                     FirebaseAuth.getInstance().signOut()
                     

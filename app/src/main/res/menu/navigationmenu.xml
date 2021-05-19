@@ -3,7 +3,7 @@
     <item
         android:id="@+id/currentWorkout"
         android:icon="@drawable/ic_home_icon_png"
-        android:title="Current" />
+        android:title="Home" />
     <item
         android:id="@+id/workouts"
         android:icon="@drawable/ic_workouts_icon_png"
@@ -11,7 +11,7 @@
 
     <item
         android:id="@+id/customWorkout"
-        android:icon="@drawable/ic_history_icon_jpg"
+        android:icon="@drawable/ic_custom_workout_icon"
         android:title="Custom Workouts" />
     <item
         android:id="@+id/muscles"

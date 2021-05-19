@@ -42,7 +42,7 @@ class Workouts : Fragment() {
         }
         workoutsAdapter!!.onMakeCurrenntWorkoutClick = {
             //make this the current workout of the user
-            val user: UserModel = UserModel(it.id, Calendar.getInstance().time.day.toLong())
+            val user = UserModel(it.id, Calendar.getInstance().time.day.toLong())
             db.collection("users").document(FirebaseAuth.getInstance().uid!!).set(user)
                     .addOnSuccessListener {
                         Toast.makeText(context, "Sucess", Toast.LENGTH_SHORT).show()
