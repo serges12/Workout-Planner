@@ -16,6 +16,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        //Notifications
+        val saveData = NotificationsSaveData(applicationContext)
+
         drawerLayout = binding.drawerLayout
         val navController = this.findNavController(R.id.myNavHostFragment)
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
@@ -48,5 +52,11 @@ class MainActivity : AppCompatActivity() {
         } else {
             super.onBackPressed()
         }
+    }
+
+    fun SetTime(Hours:Int, Minutes:Int){
+        val saveData = NotificationsSaveData(applicationContext)
+        saveData.SaveData(Hours,Minutes)
+        saveData.setAlarm()
     }
 }

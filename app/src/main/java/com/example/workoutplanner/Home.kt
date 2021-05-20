@@ -25,6 +25,14 @@ class Home : Fragment() {
         val binding: FragmentHomeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         (activity as AppCompatActivity).supportActionBar?.title = "Home"
 
+
+        //Setting Alarm
+        binding.setAlarmButton.setOnClickListener{
+//            Toast.makeText(context, binding.hourText.text.toString()+":"+binding.minuteText.text.toString(), Toast.LENGTH_SHORT).show()
+            (activity as MainActivity).SetTime(binding.hourText.text.toString().toInt(),binding.minuteText.text.toString().toInt())
+        }
+
+
         //set text and button as invisible
         binding.noCurrentWorkoutText.visibility = View.INVISIBLE
         binding.innerLayout.visibility = View.INVISIBLE
@@ -93,5 +101,7 @@ class Home : Fragment() {
 
         return binding.root
     }
+
+
 
 }
