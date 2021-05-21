@@ -1,5 +1,9 @@
 package com.example.workoutplanner
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.view.GravityCompat
@@ -9,6 +13,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.*
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.workoutplanner.databinding.ActivityMainBinding
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -16,9 +21,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
-        //Notifications
-        val saveData = NotificationsSaveData(applicationContext)
 
         drawerLayout = binding.drawerLayout
         val navController = this.findNavController(R.id.myNavHostFragment)
@@ -54,6 +56,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //Set the alarm from Settingd fragment
     fun SetTime(Hours:Int, Minutes:Int){
         val saveData = NotificationsSaveData(applicationContext)
         saveData.SaveData(Hours,Minutes)

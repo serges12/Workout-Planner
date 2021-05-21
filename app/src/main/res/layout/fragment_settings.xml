@@ -7,18 +7,20 @@
     android:layout_height="match_parent"
     tools:context=".Settings">
 
-    <Button
-        android:id="@+id/logOutButton"
+
+    <TextView
+        android:id="@+id/notificationTimePicker"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:text="Log Out"
-        android:textAlignment="textStart"
-        app:icon="@drawable/ic_log_out_icon_jpg"
-        app:iconSize="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="5dp"
+        android:clickable="true"
+        android:shadowColor="#FFFFFF"
+        android:textAlignment="center"
+        android:textColor="#4CAF50"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/textView7"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/resetPasswordButton"
@@ -33,6 +35,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/logOutButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:text="Log Out"
+        android:textAlignment="textStart"
+        app:icon="@drawable/ic_log_out_icon_jpg"
+        app:iconSize="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Daily Notification Time"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
