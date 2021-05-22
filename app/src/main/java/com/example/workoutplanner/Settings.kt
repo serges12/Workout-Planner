@@ -54,7 +54,7 @@ class Settings : Fragment() {
                     _, _ ->
                     //Handle Logout here
                     auth.signOut()
-                    
+
                     val intent = Intent(activity, LoginRegisterActivity::class.java)
                     startActivity(intent)
                     activity?.finish()
@@ -85,41 +85,40 @@ class Settings : Fragment() {
                 }
                 .setPositiveButton("Yes"){
                         _, _ ->
-
-                    db.collection("workouts").whereEqualTo("userID", auth.uid).get()
-                        .addOnSuccessListener {
-                            var batch = db.batch()
-                            for (document in it) {
-                                batch.delete(document.reference)
-                            }
-                            batch.commit()
-                                .addOnSuccessListener {
-                                    db.collection("users").document(auth.uid!!).delete()
+                    val userID = auth.uid!!
+                    auth.currentUser.delete()
+                            .addOnSuccessListener {
+                                db.collection("workouts").whereEqualTo("userID", userID).get()
                                         .addOnSuccessListener {
-                                            auth.currentUser.delete()
-                                                .addOnSuccessListener {
-                                                    Toast.makeText(context, "Account Deleted", Toast.LENGTH_SHORT).show()
-                                                    val intent = Intent(activity, LoginRegisterActivity::class.java)
-                                                    startActivity(intent)
-                                                    activity?.finish()
-                                                }
-                                                .addOnFailureListener {
-                                                    Toast.makeText(context, "Error: "+it.message, Toast.LENGTH_SHORT).show()
-                                                }
+                                            var batch = db.batch()
+                                            for (document in it) {
+                                                batch.delete(document.reference)
+                                            }
+                                            batch.commit()
+                                                    .addOnSuccessListener {
+                                                        db.collection("users").document(userID).delete()
+                                                                .addOnSuccessListener {
+                                                                    Toast.makeText(context, "Account Deleted", Toast.LENGTH_SHORT).show()
+                                                                    val intent = Intent(activity, LoginRegisterActivity::class.java)
+                                                                    startActivity(intent)
+                                                                    activity?.finish()
+                                                                }
+                                                                .addOnFailureListener {
+                                                                    Toast.makeText(context, "Error: " + it.message, Toast.LENGTH_SHORT).show()
+                                                                }
+                                                    }
+                                                    .addOnFailureListener {
+                                                        Toast.makeText(context, "Error: " + it.message, Toast.LENGTH_SHORT).show()
+                                                    }
                                         }
-                                        .addOnFailureListener{
-                                            Toast.makeText(context, "Error: "+it.message, Toast.LENGTH_SHORT).show()
+                                        .addOnFailureListener {
+                                            Toast.makeText(context, "Error: " + it.message, Toast.LENGTH_SHORT)
+                                                    .show()
                                         }
-                                }
-                                .addOnFailureListener{
-                                    Toast.makeText(context, "Error: "+it.message, Toast.LENGTH_SHORT).show()
-                                }
-                        }
-                        .addOnFailureListener {
-                            Toast.makeText(context, "Error: " + it.message, Toast.LENGTH_SHORT)
-                                .show()
-                        }
-
+                            }
+                            .addOnFailureListener {
+                                Toast.makeText(context, "Error: " + it.message, Toast.LENGTH_SHORT).show()
+                            }
 
                 }
             val alert = dialogBuilder.create()

@@ -206,7 +206,7 @@ class Workout : Fragment() {
             //list is not empty
             binding.restDayText.visibility = View.INVISIBLE
         }
-        var query: Query = db.collection("exercises").whereIn("name", listToQuery)
+        var query: Query = db.collection("exercises").whereIn("name", listToQuery).orderBy("bodyPart", Query.Direction.DESCENDING)
         var firestoreRecyclerOptions: FirestoreRecyclerOptions<ExerciseModel> = FirestoreRecyclerOptions.Builder<ExerciseModel>()
                 .setQuery(query, ExerciseModel::class.java)
                 .build()

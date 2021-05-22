@@ -9,6 +9,9 @@ import com.example.workoutplanner.models.ExerciseModel
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import kotlinx.android.synthetic.main.exercise_layout.view.*
+import kotlinx.android.synthetic.main.exercise_layout.view.exerciseImage
+import kotlinx.android.synthetic.main.exercise_layout.view.exerciseName
+import kotlinx.android.synthetic.main.exercise_with_muscle_layout.view.*
 
 class DailyExercisesRecylerViewAdapter(options: FirestoreRecyclerOptions<ExerciseModel>): FirestoreRecyclerAdapter<ExerciseModel, DailyExercisesRecylerViewAdapter.ViewHolder>(options) {
 
@@ -17,6 +20,7 @@ class DailyExercisesRecylerViewAdapter(options: FirestoreRecyclerOptions<Exercis
 
     override fun onBindViewHolder(holder: DailyExercisesRecylerViewAdapter.ViewHolder, position: Int, model: ExerciseModel) {
         holder.itemView.exerciseName.text = model.name
+        holder.itemView.exerciseMuscle.text = model.bodyPart
         holder.itemView.exerciseImage.load(model.imageLink)
     }
 
@@ -34,7 +38,7 @@ class DailyExercisesRecylerViewAdapter(options: FirestoreRecyclerOptions<Exercis
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.exercise_layout,parent,false))
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.exercise_with_muscle_layout,parent,false))
     }
 
 }
