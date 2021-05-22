@@ -122,7 +122,7 @@ class CustomWorkouts : Fragment() {
         // Set up the input
         val input = EditText(requireContext())
         // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-        input.setHint("Enter Title")
+        input.hint = "Enter Title"
         input.inputType = InputType.TYPE_CLASS_TEXT
         builder.setView(input)
 

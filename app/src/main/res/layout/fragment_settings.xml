@@ -8,6 +8,20 @@
     tools:context=".Settings">
 
 
+    <Button
+        android:id="@+id/resetPasswordButton2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:text="Reset Password"
+        android:textAlignment="textStart"
+        app:icon="@drawable/ic_reset_password_icon"
+        app:iconSize="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/logOutButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/notificationTimePicker"
         android:layout_width="0dp"
@@ -34,6 +48,32 @@
         app:layout_constraintBottom_toTopOf="@+id/logOutButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/sendSuggestionButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:text="Send Suggestion"
+        android:textAlignment="textStart"
+        app:icon="@drawable/ic_suggestion"
+        app:iconSize="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/deleteAccountButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/deleteAccountButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:text="Delete Account"
+        android:textAlignment="textStart"
+        app:icon="@drawable/ic_delete"
+        app:iconSize="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/resetPasswordButton2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
