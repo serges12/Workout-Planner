@@ -12,6 +12,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutplanner.databinding.FragmentWorkoutBinding
+import com.example.workoutplanner.models.ExerciseModel
+import com.example.workoutplanner.models.WorkoutModel
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.android.material.chip.Chip
 import com.google.firebase.firestore.FieldValue

@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/login"
-        android:name="com.example.workoutplanner.Login"
+        android:name="com.example.workoutplanner.authentication.Login"
         android:label="Login" >
         <action
             android:id="@+id/action_login_to_register"
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/register"
-        android:name="com.example.workoutplanner.Register"
+        android:name="com.example.workoutplanner.authentication.Register"
         android:label="Register" >
         <action
             android:id="@+id/action_register_to_login"

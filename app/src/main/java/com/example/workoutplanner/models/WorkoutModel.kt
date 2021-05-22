@@ -1,4 +1,4 @@
-package com.example.workoutplanner
+package com.example.workoutplanner.models
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

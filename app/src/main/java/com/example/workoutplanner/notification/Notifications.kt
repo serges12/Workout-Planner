@@ -1,4 +1,4 @@
-package com.example.workoutplanner
+package com.example.workoutplanner.notification
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -9,6 +9,8 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import com.example.workoutplanner.MainActivity
+import com.example.workoutplanner.R
 
 class Notifications {
     fun Notify(context: Context, message:String){

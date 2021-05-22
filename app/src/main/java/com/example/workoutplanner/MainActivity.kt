@@ -1,9 +1,5 @@
 package com.example.workoutplanner
 
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.Context
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.view.GravityCompat
@@ -13,7 +9,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.*
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.workoutplanner.databinding.ActivityMainBinding
-import java.util.*
+import com.example.workoutplanner.notification.NotificationsSaveData
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

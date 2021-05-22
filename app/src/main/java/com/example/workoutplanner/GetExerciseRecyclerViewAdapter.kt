@@ -7,6 +7,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.example.workoutplanner.models.ExerciseModel
 import kotlinx.android.synthetic.main.exercise_layout.view.exerciseImage
 import kotlinx.android.synthetic.main.exercise_layout.view.exerciseName
 import kotlinx.android.synthetic.main.exercise_with_muscle_layout.view.*

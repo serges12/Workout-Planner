@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WorkoutPlanner">
         <activity android:name=".GetExerciseActivity"></activity>
-        <activity android:name=".LoginRegisterActivity">
+        <activity android:name=".authentication.LoginRegisterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity"></activity>
-        <receiver android:name=".NotificationsBroadcastReceiver"/>
+        <receiver android:name=".notification.NotificationsBroadcastReceiver"/>
 <!--            <intent-filter>-->
 <!--                <action android:name="com.tester.alarmmanager"/>-->
 <!--                <action android:name="android.intent.action.BOOT_COMPLETED"/>-->

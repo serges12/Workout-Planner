@@ -12,6 +12,7 @@ import android.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutplanner.databinding.ActivityGetExerciseBinding
+import com.example.workoutplanner.models.ExerciseModel
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_get_exercise.*
 

@@ -11,6 +11,8 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workoutplanner.databinding.FragmentWorkoutsBinding
+import com.example.workoutplanner.models.UserModel
+import com.example.workoutplanner.models.WorkoutModel
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore

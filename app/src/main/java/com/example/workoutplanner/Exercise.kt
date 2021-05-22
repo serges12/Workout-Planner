@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import coil.load
 import com.example.workoutplanner.databinding.FragmentExerciseBinding
+import com.example.workoutplanner.models.ExerciseModel
 import com.google.firebase.firestore.FirebaseFirestore
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener

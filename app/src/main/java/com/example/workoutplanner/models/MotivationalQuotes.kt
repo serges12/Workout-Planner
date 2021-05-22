@@ -1,4 +1,4 @@
-package com.example.workoutplanner
+package com.example.workoutplanner.models
 
 class MotivationalQuotes {
     var quotes: Array<Array<String>> = arrayOf(

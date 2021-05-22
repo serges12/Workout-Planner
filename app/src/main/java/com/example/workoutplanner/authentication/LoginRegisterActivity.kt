@@ -1,8 +1,9 @@
-package com.example.workoutplanner
+package com.example.workoutplanner.authentication
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import com.example.workoutplanner.R
 import com.example.workoutplanner.databinding.ActivityLoginRegisterBinding
 
 class LoginRegisterActivity : AppCompatActivity() {

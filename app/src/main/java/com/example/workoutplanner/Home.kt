@@ -1,7 +1,6 @@
 package com.example.workoutplanner
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +11,8 @@ import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.example.workoutplanner.databinding.FragmentHomeBinding
+import com.example.workoutplanner.models.MotivationalQuotes
+import com.example.workoutplanner.models.WorkoutModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*

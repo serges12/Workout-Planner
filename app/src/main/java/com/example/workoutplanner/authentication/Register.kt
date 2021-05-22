@@ -1,4 +1,4 @@
-package com.example.workoutplanner
+package com.example.workoutplanner.authentication
 
 import android.os.Bundle
 import android.text.TextUtils
@@ -9,14 +9,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
+import com.example.workoutplanner.R
 import com.example.workoutplanner.databinding.FragmentRegisterBinding
-import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 
 class Register : Fragment() {
     private lateinit var binding: FragmentRegisterBinding

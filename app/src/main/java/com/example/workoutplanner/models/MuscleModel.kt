@@ -1,4 +1,4 @@
-package com.example.workoutplanner
+package com.example.workoutplanner.models
 
 class MuscleModel(
     val name:String?=null,

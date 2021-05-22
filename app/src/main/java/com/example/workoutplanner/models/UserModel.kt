@@ -1,4 +1,4 @@
-package com.example.workoutplanner
+package com.example.workoutplanner.models
 
 data class UserModel(
         val currentWorkout: String?=null,//current workout ID

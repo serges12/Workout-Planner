@@ -1,4 +1,4 @@
-package com.example.workoutplanner
+package com.example.workoutplanner.notification
 
 import android.app.AlarmManager
 import android.app.PendingIntent

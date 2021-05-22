@@ -14,6 +14,8 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workoutplanner.databinding.FragmentCustomWorkoutsBinding
+import com.example.workoutplanner.models.UserModel
+import com.example.workoutplanner.models.WorkoutModel
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -131,7 +133,7 @@ class CustomWorkouts : Fragment() {
             val workout: WorkoutModel = WorkoutModel(
                     FirebaseAuth.getInstance().uid,
                     title,
-                    mutableListOf<String>(), mutableListOf<String>(),mutableListOf<String>(),mutableListOf<String>(),mutableListOf<String>(),mutableListOf<String>(),mutableListOf<String>()
+                    mutableListOf<String>(), mutableListOf<String>(), mutableListOf<String>(), mutableListOf<String>(), mutableListOf<String>(), mutableListOf<String>(), mutableListOf<String>()
             )
 
             db.collection("workouts").add(workout)

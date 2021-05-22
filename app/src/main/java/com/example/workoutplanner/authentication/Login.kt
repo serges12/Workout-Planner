@@ -1,4 +1,4 @@
-package com.example.workoutplanner
+package com.example.workoutplanner.authentication
 
 import android.content.ContentValues.TAG
 import android.content.Intent
@@ -12,6 +12,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
+import com.example.workoutplanner.MainActivity
+import com.example.workoutplanner.R
 import com.example.workoutplanner.databinding.FragmentLoginBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -32,7 +34,7 @@ class Login : Fragment() {
 
         //if user is already logged in, go straight to main activity
         if (FirebaseAuth.getInstance().currentUser != null){
-            val intent = Intent(activity,MainActivity::class.java)
+            val intent = Intent(activity, MainActivity::class.java)
             startActivity(intent)
             activity?.finish()
         }
@@ -78,7 +80,7 @@ class Login : Fragment() {
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 //if successfull, take us to main activity with user logged in
-                                val intent = Intent(activity,MainActivity::class.java)
+                                val intent = Intent(activity, MainActivity::class.java)
                                 startActivity(intent)
                                 activity?.finish()
                             }
@@ -135,7 +137,7 @@ class Login : Fragment() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Toast.makeText(context, "You were logged in successfully.", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(activity,MainActivity::class.java)
+                    val intent = Intent(activity, MainActivity::class.java)
                     startActivity(intent)
                     activity?.finish()
                 } else {
