@@ -23,14 +23,14 @@ class Exercise : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater,com.example.workoutplanner.R.layout.fragment_exercise,container,false)
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_exercise,container,false)
         val exercise: ExerciseModel = ExerciseArgs.fromBundle(requireArguments()).exercise
         //now we have access to the exercise
         //see ExerciseModel.kt to check available attributes (name, description, videoLink, imageLink, bodyPart)
         (activity as AppCompatActivity).supportActionBar?.title = exercise.name
         binding.exerciseDescriptionText.setText(exercise.description)
         binding.bodyPartText.text = exercise.bodyPart.toString()
-        binding.imageView.load(exercise.imageLink)
+//        binding.imageView.load(exercise.imageLink)
         binding.exerciseDescriptionText.movementMethod = ScrollingMovementMethod()
 
 

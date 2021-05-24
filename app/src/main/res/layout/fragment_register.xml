@@ -8,34 +8,22 @@
         android:layout_height="match_parent"
         tools:context=".`Login/Register`">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/app_name"
-            android:textSize="36sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="40dp"
             android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView"
-            app:layout_constraintVertical_bias="1.0">
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Register"
+                android:textColor="@color/light_gray"
                 android:textSize="30sp"
                 app:layout_constraintBottom_toTopOf="@+id/emailInputLayout"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -58,6 +46,7 @@
                     android:id="@+id/emailInputText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/input_gray"
                     android:selectAllOnFocus="false"
                     android:singleLine="true" />
 
@@ -80,6 +69,7 @@
                     android:id="@+id/passwordInputText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/input_gray"
                     android:password="true"
                     android:singleLine="true" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -92,7 +82,7 @@
                 android:clickable="true"
                 android:focusable="false"
                 android:text="Already have an account? Click to Login"
-                android:textColor="#673AB7"
+                android:textColor="@color/orange_500"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/passwordInputLayout" />
@@ -101,8 +91,9 @@
                 android:id="@+id/RegisterButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="30dp"
                 android:text="Register"
+                android:textColor="@color/light_gray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/goToLogin" />

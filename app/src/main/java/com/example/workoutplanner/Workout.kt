@@ -3,6 +3,7 @@ package com.example.workoutplanner
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Toast
@@ -72,11 +73,13 @@ class Workout : Fragment() {
         binding.recyclerView.adapter = exercisesAdapter
 
         //set current workout name
-        binding.WorkoutNameText.text = workout.name
         (activity as AppCompatActivity).supportActionBar?.title = workout.name
 
         //store in database the starting day and generate names based on that starting day
         //set starting day
+        //if it is sunday
+        if(startingDay==0)
+            startingDay=7
         var temp = startingDay
         val daysOfTheWeek = listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday","Sunday")
         for(i in 0..6) {
@@ -312,8 +315,8 @@ class Workout : Fragment() {
             2->{
                 db.collection("workouts").document(workoutID).update("day2Exercises", FieldValue.arrayRemove(exerciseName))
                         .addOnSuccessListener {
-                            workout.day1Exercises!!.removeAll(listOf(exerciseName))
-                            updateRecycler(1)
+                            workout.day2Exercises!!.removeAll(listOf(exerciseName))
+                            updateRecycler(2)
                             Toast.makeText(context, "Exercise Deleted!", Toast.LENGTH_SHORT).show()
                         }
                         .addOnFailureListener {
@@ -323,8 +326,8 @@ class Workout : Fragment() {
             3->{
                 db.collection("workouts").document(workoutID).update("day3Exercises", FieldValue.arrayRemove(exerciseName))
                         .addOnSuccessListener {
-                            workout.day1Exercises!!.removeAll(listOf(exerciseName))
-                            updateRecycler(1)
+                            workout.day3Exercises!!.removeAll(listOf(exerciseName))
+                            updateRecycler(3)
                             Toast.makeText(context, "Exercise Deleted!", Toast.LENGTH_SHORT).show()
                         }
                         .addOnFailureListener {
@@ -334,8 +337,8 @@ class Workout : Fragment() {
             4->{
                 db.collection("workouts").document(workoutID).update("day4Exercises", FieldValue.arrayRemove(exerciseName))
                         .addOnSuccessListener {
-                            workout.day1Exercises!!.removeAll(listOf(exerciseName))
-                            updateRecycler(1)
+                            workout.day4Exercises!!.removeAll(listOf(exerciseName))
+                            updateRecycler(4)
                             Toast.makeText(context, "Exercise Deleted!", Toast.LENGTH_SHORT).show()
                         }
                         .addOnFailureListener {
@@ -345,8 +348,8 @@ class Workout : Fragment() {
             5->{
                 db.collection("workouts").document(workoutID).update("day5Exercises", FieldValue.arrayRemove(exerciseName))
                         .addOnSuccessListener {
-                            workout.day1Exercises!!.removeAll(listOf(exerciseName))
-                            updateRecycler(1)
+                            workout.day5Exercises!!.removeAll(listOf(exerciseName))
+                            updateRecycler(5)
                             Toast.makeText(context, "Exercise Deleted!", Toast.LENGTH_SHORT).show()
                         }
                         .addOnFailureListener {
@@ -356,8 +359,8 @@ class Workout : Fragment() {
             6->{
                 db.collection("workouts").document(workoutID).update("day6Exercises", FieldValue.arrayRemove(exerciseName))
                         .addOnSuccessListener {
-                            workout.day1Exercises!!.removeAll(listOf(exerciseName))
-                            updateRecycler(1)
+                            workout.day6Exercises!!.removeAll(listOf(exerciseName))
+                            updateRecycler(6)
                             Toast.makeText(context, "Exercise Deleted!", Toast.LENGTH_SHORT).show()
                         }
                         .addOnFailureListener {
@@ -367,8 +370,8 @@ class Workout : Fragment() {
             7->{
                 db.collection("workouts").document(workoutID).update("day7Exercises", FieldValue.arrayRemove(exerciseName))
                         .addOnSuccessListener {
-                            workout.day1Exercises!!.removeAll(listOf(exerciseName))
-                            updateRecycler(1)
+                            workout.day7Exercises!!.removeAll(listOf(exerciseName))
+                            updateRecycler(7)
                             Toast.makeText(context, "Exercise Deleted!", Toast.LENGTH_SHORT).show()
                         }
                         .addOnFailureListener {

@@ -2,24 +2,26 @@ package com.example.workoutplanner
 
 import android.app.AlertDialog
 import android.app.TimePickerDialog
+import android.content.ClipboardManager
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import android.widget.EditText
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import com.example.workoutplanner.authentication.LoginRegisterActivity
 import com.example.workoutplanner.databinding.FragmentSettingsBinding
 import com.example.workoutplanner.models.SuggestionModel
-import com.example.workoutplanner.models.WorkoutModel
 import com.example.workoutplanner.notification.NotificationsSaveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+
 
 class Settings : Fragment() {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
@@ -30,15 +32,40 @@ class Settings : Fragment() {
     ): View? {
         val binding: FragmentSettingsBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_settings, container, false)
 
+        //Notifications
         val saveData = NotificationsSaveData((activity as MainActivity).applicationContext)
+        //Switch
+         if(!saveData.isNotificationOn()){
+                    binding.notificationSwitch.isChecked = false
+                    binding.notificationTimePicker.visibility = View.GONE
+                    binding.dailyNotificationText.visibility = View.GONE
+                }
+        binding.notificationSwitch.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+            if(isChecked){
+                (activity as MainActivity).SetTime(saveData.getHour(), saveData.getMinute(),true)
+                binding.notificationTimePicker.visibility = View.VISIBLE
+                binding.dailyNotificationText.visibility = View.VISIBLE
+            }else{
+                (activity as MainActivity).SetTime(saveData.getHour(), saveData.getMinute(),false)
+                binding.notificationTimePicker.visibility = View.GONE
+                binding.dailyNotificationText.visibility = View.GONE
+            }
+        })
+        //Time picker
         binding.notificationTimePicker.text = String.format("%02d",saveData.getHour()) + ":" + String.format("%02d",saveData.getMinute())
         binding.notificationTimePicker.setOnClickListener{
             val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
                 binding.notificationTimePicker.text = String.format("%02d",hour) + ":" + String.format("%02d",minute)
-                (activity as MainActivity).SetTime(hour, minute)
+                (activity as MainActivity).SetTime(hour, minute,true)
             }
             val timePickerDialog = TimePickerDialog(context,timeSetListener,saveData.getHour(),saveData.getMinute(),true)
             timePickerDialog.show()
+        }
+
+        //if contact email is clicked, copy it to clipboard
+        binding.contactEmail.setOnClickListener{
+            (activity as MainActivity).copyToClipboard(binding.contactEmail.text.toString())
+            Toast.makeText(context, "Copied to clipboard.", Toast.LENGTH_SHORT).show()
         }
 
         binding.logOutButton.setOnClickListener(){
@@ -79,6 +106,7 @@ class Settings : Fragment() {
             dialogBuilder
                 .setTitle("Delete Account?")
                 .setMessage("Deleting an account cannot be undone. Are you sure you want to proceed?")
+                    .setIcon(R.drawable.ic_warning_icon)
                 .setNegativeButton("No"){
                         dialogInterface, _ ->
                     dialogInterface.cancel()
@@ -104,7 +132,7 @@ class Settings : Fragment() {
                                                                     activity?.finish()
                                                                 }
                                                                 .addOnFailureListener {
-                                                                    Toast.makeText(context, "Error: " + it.message, Toast.LENGTH_SHORT).show()
+                                                                    Toast.makeText(context, "Error: " + it.message, Toast.LENGTH_LONG).show()
                                                                 }
                                                     }
                                                     .addOnFailureListener {
@@ -154,7 +182,6 @@ class Settings : Fragment() {
                     }
             })
             builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, _ -> dialog.cancel() })
-
             builder.show()
         }
 

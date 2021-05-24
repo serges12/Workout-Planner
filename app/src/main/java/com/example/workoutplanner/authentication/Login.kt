@@ -39,6 +39,18 @@ class Login : Fragment() {
             activity?.finish()
         }
 
+        //if forgot password is clicked
+        binding.forgotPassword.setOnClickListener{
+
+//            auth.sendPasswordResetEmail(auth.currentUser.email)
+//                    .addOnSuccessListener {
+//                        Toast.makeText(context, "An reset link has been sent to your email address", Toast.LENGTH_SHORT).show()
+//                    }
+//                    .addOnFailureListener{
+//                        Toast.makeText(context, "Error: "+it.message, Toast.LENGTH_SHORT).show()
+//                    }
+        }
+
         binding.goToRegister.setOnClickListener{view :View ->
             Navigation.findNavController(view).navigate(R.id.action_login_to_register)
         }

@@ -5,5 +5,5 @@
         android:id="@+id/menuAddWorkoutByID"
         android:icon="@android:drawable/stat_sys_download"
         android:title="Add Workout By ID"
-        app:showAsAction="ifRoom|collapseActionView"/>
+        app:showAsAction="ifRoom|collapseActionView" />
 </menu>

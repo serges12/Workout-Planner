@@ -10,6 +10,10 @@
         <action
             android:id="@+id/action_login_to_register"
             app:destination="@id/register"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/register"
             app:popUpToInclusive="true" />
     </fragment>
@@ -20,6 +24,8 @@
         <action
             android:id="@+id/action_register_to_login"
             app:destination="@id/login"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
             app:launchSingleTop="false"
             app:popUpTo="@id/login"
             app:popUpToInclusive="true" />

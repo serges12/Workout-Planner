@@ -14,7 +14,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/dark_gray">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView4"
@@ -22,16 +23,14 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -44,14 +43,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="TextView"
-                android:textColor="@color/design_default_color_error"
+                android:textColor="@color/light_gray"
                 android:textSize="30sp" />
 
             <Button
                 android:id="@+id/buttonMakeCurrentWorkout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Make Current Workout" />
+                android:text="Make Current Workout"
+                android:textColor="@color/orange_500"
+                app:backgroundTint="@color/gray" />
 
         </LinearLayout>
 

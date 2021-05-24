@@ -20,17 +20,21 @@ class NotificationsSaveData {
     fun getMinute(): Int{
         return sharedPreferences!!.getInt("minute",0)
     }
-
-    fun SaveData(hour: Int, minute: Int){
+    fun isNotificationOn(): Boolean{
+        return sharedPreferences!!.getBoolean("on",true)
+    }
+    fun SaveData(hour: Int, minute: Int, on:Boolean){
         var editor = sharedPreferences?.edit()
         editor?.putInt("hour", hour)
         editor?.putInt("minute", minute)
+        editor?.putBoolean("on",on)
         editor?.commit()
     }
 
     fun setAlarm(){
         val hour: Int = getHour()
         val minute: Int = getMinute()
+        val on: Boolean = isNotificationOn()
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.HOUR_OF_DAY,hour)
         calendar.set(Calendar.MINUTE, minute)
@@ -41,7 +45,9 @@ class NotificationsSaveData {
         intent.putExtra("message", "Check out what you have for the day! Let's go!")
         intent.action="com.tester.alarmmanager"
         val pi = PendingIntent.getBroadcast(context,0,intent, PendingIntent.FLAG_UPDATE_CURRENT)
-
-        am.setRepeating(AlarmManager.RTC_WAKEUP,calendar.timeInMillis, AlarmManager.INTERVAL_DAY,pi)
+        //If notifications are on in settings
+        if(on) {
+            am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, pi)
+        }
     }
 }

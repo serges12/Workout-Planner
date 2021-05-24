@@ -14,7 +14,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/dark_gray">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView4"
@@ -49,8 +50,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Muscle"
-                android:textColor="#000000"
-                android:textSize="20sp"
+                android:textColor="@color/cherry_tomato"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -58,8 +59,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Exercise Name"
-                android:textColor="@color/design_default_color_error"
-                android:textSize="30sp" />
+                android:textColor="@color/light_gray"
+                android:textSize="24sp" />
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,7 +14,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/dark_gray">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView4"
@@ -49,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView"
-                android:textColor="@color/design_default_color_error"
+                android:textColor="@color/cherry_tomato"
                 android:textSize="30sp" />
 
         </LinearLayout>

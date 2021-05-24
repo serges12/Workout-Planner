@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Your Current Workout"
+            android:textColor="@color/light_gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -31,6 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:clickable="true"
+            android:textColor="@color/light_gray"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,6 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Go To Current Workout"
+            android:textColor="@color/orange_500"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/workoutNameText" />
@@ -57,6 +60,7 @@
         android:layout_marginEnd="5dp"
         android:text="You have no current workout. Start a new workout or create your own!"
         android:textAlignment="center"
+        android:textColor="@color/light_gray"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,6 +74,7 @@
         android:layout_marginEnd="20dp"
         android:text="TextView"
         android:textAlignment="center"
+        android:textColor="@color/light_gray"
         android:textSize="18sp"
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -85,6 +90,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="40dp"
         android:text="TextView"
+        android:textColor="@color/light_gray"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/quoteText" />
