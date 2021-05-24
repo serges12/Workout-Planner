@@ -93,7 +93,7 @@ class Settings : Fragment() {
         binding.resetPasswordButton.setOnClickListener{
             auth.sendPasswordResetEmail(auth.currentUser.email)
                 .addOnSuccessListener {
-                    Toast.makeText(context, "An reset link has been sent to your email address", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "A reset link has been sent to your email address", Toast.LENGTH_SHORT).show()
                 }
                 .addOnFailureListener{
                     Toast.makeText(context, "Error: "+it.message, Toast.LENGTH_SHORT).show()

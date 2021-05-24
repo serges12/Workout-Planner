@@ -1,20 +1,25 @@
 package com.example.workoutplanner.authentication
 
+import android.app.AlertDialog
 import android.content.ContentValues.TAG
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.text.TextUtils
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import com.example.workoutplanner.MainActivity
 import com.example.workoutplanner.R
 import com.example.workoutplanner.databinding.FragmentLoginBinding
+import com.example.workoutplanner.models.WorkoutModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -53,6 +58,34 @@ class Login : Fragment() {
 
         binding.goToRegister.setOnClickListener{view :View ->
             Navigation.findNavController(view).navigate(R.id.action_login_to_register)
+        }
+        binding.forgotPassword.setOnClickListener{
+            val builder: androidx.appcompat.app.AlertDialog.Builder = androidx.appcompat.app.AlertDialog.Builder(requireContext())
+            builder.setTitle("Reset Password")
+            //Set warning message
+            builder.setMessage("Enter you email and we will send you a reset link.")
+            // Set up the input
+            val input = EditText(requireContext())
+            // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+            input.hint = "Enter Email"
+            input.inputType = InputType.TYPE_CLASS_TEXT
+            builder.setView(input)
+
+            // Set up the buttons
+            builder.setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
+                // Here you get get input text from the Edittext
+                var email = input.text.toString()
+                auth.sendPasswordResetEmail(email)
+                        .addOnSuccessListener {
+                            Toast.makeText(context, "A reset link has been sent to your email address", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener{
+                            Toast.makeText(context, "Error: "+it.message, Toast.LENGTH_SHORT).show()
+                        }
+            })
+            builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, _ -> dialog.cancel() })
+
+            builder.show()
         }
         binding.LoginButton.setOnClickListener(){
             //check credentials

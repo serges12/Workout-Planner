@@ -96,6 +96,7 @@
             android:layout_height="wrap_content"
             android:text="Rest Day \n You Deserve It!"
             android:textAlignment="center"
+            android:textColor="@color/light_gray"
             android:textSize="30sp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
