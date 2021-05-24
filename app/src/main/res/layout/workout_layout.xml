@@ -15,7 +15,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/dark_gray">
+        android:background="@color/input_gray">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView4"
@@ -42,6 +42,8 @@
                 android:id="@+id/WorkoutName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:text="TextView"
                 android:textColor="@color/light_gray"
                 android:textSize="30sp" />
@@ -52,7 +54,8 @@
                 android:layout_height="match_parent"
                 android:text="Make Current Workout"
                 android:textColor="@color/orange_500"
-                app:backgroundTint="@color/gray" />
+                app:backgroundTint="@color/gray"
+                app:cornerRadius="12dp" />
 
         </LinearLayout>
 
