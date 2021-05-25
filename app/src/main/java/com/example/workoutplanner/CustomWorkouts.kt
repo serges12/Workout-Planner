@@ -56,7 +56,7 @@ class CustomWorkouts : Fragment() {
         customWorkoutsAdapter!!.onLongItemClick = {
             val dialog = android.app.AlertDialog.Builder(context)
             dialog
-                    .setItems(arrayOf("Rename","Delete"), DialogInterface.OnClickListener{ dialog, index ->
+                    .setItems(arrayOf("Rename","Delete"), DialogInterface.OnClickListener{ _, index ->
                         if(index==0){
                             val renameDialogBuilder: AlertDialog.Builder = androidx.appcompat.app.AlertDialog.Builder(requireContext())
                             renameDialogBuilder.setTitle("Custom Workout Title")
