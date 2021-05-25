@@ -54,27 +54,56 @@ class CustomWorkouts : Fragment() {
             view?.findNavController()?.navigate(CustomWorkoutsDirections.actionCustomWorkoutToWorkout(it.toObject(WorkoutModel::class.java)!!, 1, true, it.id, 1))//starting day is 1 if we only wana see details
         }
         customWorkoutsAdapter!!.onLongItemClick = {
-            val dialogBuilder = android.app.AlertDialog.Builder(context)
-            dialogBuilder
-                    .setTitle("Delete?")
-                    .setMessage("You are about to delete this workout. Proceed?")
-                    .setNegativeButton("No"){
-                        dialogInterface, _ ->
-                        dialogInterface.cancel()
-                    }
-                    .setPositiveButton("Yes"){
-                        _, _ ->
-                        //Handle Delete here
-                        it.reference.delete()
-                                .addOnSuccessListener {
-                            Toast.makeText(context, "Deleted.", Toast.LENGTH_SHORT).show()
+            val dialog = android.app.AlertDialog.Builder(context)
+            dialog
+                    .setItems(arrayOf("Rename","Delete"), DialogInterface.OnClickListener{ dialog, index ->
+                        if(index==0){
+                            val renameDialogBuilder: AlertDialog.Builder = androidx.appcompat.app.AlertDialog.Builder(requireContext())
+                            renameDialogBuilder.setTitle("Custom Workout Title")
+                            //Set warning message
+                            // Set up the input
+                            val input = EditText(requireContext())
+                            input.setText(it.toObject(WorkoutModel::class.java)?.name)
+                            // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                            input.hint = "Enter Title"
+                            input.inputType = InputType.TYPE_CLASS_TEXT
+                            renameDialogBuilder.setView(input)
+
+                            // Set up the buttons
+                            renameDialogBuilder.setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
+                                // Rename in database here
+                                var title = input.text.toString()
+
+                            })
+                            renameDialogBuilder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, _ -> dialog.cancel() })
+
+                            renameDialogBuilder.show()
                         }
-                                .addOnFailureListener{
-                                    Toast.makeText(context, "Error while deleting:\n"+it.message, Toast.LENGTH_SHORT).show()
+                        if(index==1) {
+                            val deleteDialogBuilder = android.app.AlertDialog.Builder(context)
+                            deleteDialogBuilder
+                                    .setTitle("Delete?")
+                                    .setMessage("You are about to delete this workout. Proceed?")
+                                    .setNegativeButton("No") { dialogInterface, _ ->
+                                        dialogInterface.cancel()
+                                    }
+                                    .setPositiveButton("Yes") { _, _ ->
+                                        //Handle Delete here
+                                        it.reference.delete()
+                                                .addOnSuccessListener {
+                                                    Toast.makeText(context, "Deleted.", Toast.LENGTH_SHORT).show()
+                                                }
+                                                .addOnFailureListener {
+                                                    Toast.makeText(context, "Error while deleting:\n" + it.message, Toast.LENGTH_SHORT).show()
+                                                }
+                                    }
+                            val alert = deleteDialogBuilder.create()
+                            alert.show()
                         }
-                    }
-            val alert = dialogBuilder.create()
-            alert.show()
+            })
+            val dialogAlert = dialog.create()
+            dialogAlert.show()
+
         }
 
 

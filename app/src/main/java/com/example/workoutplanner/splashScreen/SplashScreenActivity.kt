@@ -3,6 +3,7 @@ package com.example.workoutplanner.splashScreen
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import com.example.workoutplanner.MainActivity
 import com.example.workoutplanner.R
 import com.example.workoutplanner.authentication.LoginRegisterActivity
@@ -13,10 +14,12 @@ class SplashScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
         this.supportActionBar?.hide()
-        constraintLayoutSplashScreen.setOnClickListener{
-            val intent = Intent(this, LoginRegisterActivity::class.java)
-            startActivity(intent)
+            Handler().postDelayed({
+                val intent = Intent(this, LoginRegisterActivity::class.java)
+                startActivity(intent)
+//                overridePendingTransition(0, R.anim.slide_up)
             this?.finish()
-        }
+            },2000
+            )
     }
 }
