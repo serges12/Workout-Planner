@@ -3,16 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/currentWorkout">
+    app:startDestination="@id/Home">
 
-    <fragment
-        android:id="@+id/currentWorkout"
-        android:name="com.example.workoutplanner.Home"
-        android:label="CurrentWorkout" >
-        <action
-            android:id="@+id/action_currentWorkout_to_workout"
-            app:destination="@id/workout" />
-    </fragment>
     <fragment
         android:id="@+id/customWorkout"
         android:name="com.example.workoutplanner.CustomWorkouts"
@@ -82,5 +74,19 @@
         <argument
             android:name="currentDay"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/Home"
+        android:name="com.example.workoutplanner.Home"
+        android:label="Home" >
+        <action
+            android:id="@+id/action_Home_to_customWorkout"
+            app:destination="@id/customWorkout" />
+        <action
+            android:id="@+id/action_Home_to_workouts"
+            app:destination="@id/workouts" />
+        <action
+            android:id="@+id/action_Home_to_workout"
+            app:destination="@id/workout" />
     </fragment>
 </navigation>

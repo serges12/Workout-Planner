@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
         //we need to setup appBarConfiguration for our hamburgermenu to know which are the top-level destinations
         val appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.currentWorkout, R.id.workouts, R.id.muscles, R.id.customWorkout, R.id.settings),
+            setOf(R.id.Home, R.id.workouts, R.id.muscles, R.id.customWorkout, R.id.settings),
             drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = this.findNavController(R.id.myNavHostFragment)
         val appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.currentWorkout, R.id.workouts, R.id.muscles, R.id.customWorkout, R.id.settings),
+            setOf(R.id.Home, R.id.workouts, R.id.muscles, R.id.customWorkout, R.id.settings),
             drawerLayout
         )
         //As it turns out, the appBarConfiguration needs to be used as the parameter for navigateUp so that the top-level destinations setup are obeyed:

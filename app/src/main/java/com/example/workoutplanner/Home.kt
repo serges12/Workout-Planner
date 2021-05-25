@@ -27,8 +27,8 @@ class Home : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.title = "Home"
 
         //set text and button as invisible
-        binding.noCurrentWorkoutText.visibility = View.INVISIBLE
-        binding.innerLayout.visibility = View.INVISIBLE
+        binding.NoWorkoutLayout.visibility = View.INVISIBLE
+        binding.HasWorkoutLayout.visibility = View.INVISIBLE
 
         val db = FirebaseFirestore.getInstance()
         var currentWorkoutID: String
@@ -41,6 +41,13 @@ class Home : Fragment() {
         binding.quoteText.text = "\"" + motivationalQuotes.quotes[index][0] + "\""
         binding.quoteWriterText.text = "~ " + motivationalQuotes.quotes[index][1]
 
+        binding.buttonGoToWorkouts.setOnClickListener{view:View->
+            view.findNavController().navigate(HomeDirections.actionHomeToWorkouts())
+        }
+        binding.buttonGoToCustomWorkouts.setOnClickListener{view:View->
+            view.findNavController().navigate(HomeDirections.actionHomeToCustomWorkout())
+        }
+
         db.collection("users").document(FirebaseAuth.getInstance().uid!!).get()
             .addOnSuccessListener {
                 if(it.data != null) {
@@ -51,14 +58,14 @@ class Home : Fragment() {
                             .get()
                             .addOnSuccessListener {
                                 if(it.data != null) {
-                                    binding.innerLayout.isVisible = true
+                                    binding.HasWorkoutLayout.isVisible = true
                                     binding.workoutNameText.text =
                                         it.toObject(WorkoutModel::class.java)?.name
                                     //when we get userid, we set onclick listener
                                     binding.buttonGoToCurrentWorkout.setOnClickListener { view: View ->
                                         binding.buttonGoToCurrentWorkout.isClickable = false
                                         view.findNavController().navigate(
-                                            HomeDirections.actionCurrentWorkoutToWorkout(
+                                            HomeDirections.actionHomeToWorkout(
                                                 it.toObject(WorkoutModel::class.java)!!,
                                                 startingDay,
                                                 false,
@@ -69,7 +76,7 @@ class Home : Fragment() {
                                     }
                                 }
                                 else{
-                                    binding.noCurrentWorkoutText.isVisible = true
+                                    binding.NoWorkoutLayout.isVisible = true
                                     binding.buttonGoToCurrentWorkout.setOnClickListener {
                                         Toast.makeText(context, "Error: Select a current workout first!", Toast.LENGTH_SHORT).show()
                                     }
