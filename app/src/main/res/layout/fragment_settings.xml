@@ -9,34 +9,64 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout2"
-        android:layout_width="match_parent"
+        android:id="@+id/constraintLayoutNotifications"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:padding="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayoutFeedback"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed">
 
         <TextView
             android:id="@+id/notificationsText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="15dp"
             android:text="Notifications"
             android:textColor="@color/light_gray"
             android:textSize="24sp"
+            app:layout_constraintEnd_toStartOf="@+id/notificationSwitch"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Switch
+            android:id="@+id/notificationSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:checked="true"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:textOff="OFF"
+            android:textOn="ON"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/notificationsText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/notificationsText"
+            app:layout_constraintTop_toTopOf="@+id/notificationsText"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/dailyNotificationText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
             android:text="Daily Notification Time"
             android:textColor="@color/light_gray"
             android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/notificationTimePicker"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/notificationsText" />
 
@@ -44,151 +74,174 @@
             android:id="@+id/notificationTimePicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginEnd="30dp"
             android:clickable="true"
             android:shadowColor="#FFFFFF"
             android:textAlignment="center"
             android:textColor="@color/cherry_tomato"
             android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="@+id/notificationSwitch"
-            app:layout_constraintTop_toBottomOf="@+id/notificationsText" />
+            app:layout_constraintBottom_toBottomOf="@+id/dailyNotificationText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/dailyNotificationText"
+            app:layout_constraintTop_toTopOf="@+id/dailyNotificationText" />
 
-        <Switch
-            android:id="@+id/notificationSwitch"
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutFeedback"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayoutAccount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayoutNotifications">
+
+        <TextView
+            android:id="@+id/feedbackSettingsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
+            android:text="Feedback"
+            android:textColor="@color/light_gray"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/sendSuggestionButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="15dp"
+            android:text="Send Suggestion"
+            android:textAlignment="textStart"
+            app:cornerRadius="12dp"
+            app:icon="@drawable/ic_suggestion"
+            app:iconSize="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/feedbackSettingsText"
+            app:layout_constraintTop_toBottomOf="@+id/feedbackSettingsText" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutAccount"
+        android:layout_width="410dp"
+        android:layout_height="292dp"
+        android:padding="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayoutContactUs"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayoutFeedback">
+
+        <TextView
+            android:id="@+id/accountSettingsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
+            android:text="Account Settings"
+            android:textColor="@color/light_gray"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/resetPasswordButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Reset Password"
+            android:textAlignment="textStart"
+            app:cornerRadius="12dp"
+            app:icon="@drawable/ic_reset_password_icon"
+            app:iconSize="30dp"
+            app:layout_constraintEnd_toEndOf="@+id/logOutButton"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/logOutButton"
+            app:layout_constraintTop_toBottomOf="@+id/logOutButton" />
+
+        <Button
+            android:id="@+id/deleteAccountButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Delete Account"
+            android:textAlignment="textStart"
+            android:textColor="@color/cherry_tomato"
+            app:cornerRadius="12dp"
+            app:icon="@drawable/ic_delete"
+            app:iconSize="30dp"
+            app:iconTint="@color/cherry_tomato"
+            app:layout_constraintEnd_toEndOf="@+id/resetPasswordButton"
+            app:layout_constraintStart_toStartOf="@+id/resetPasswordButton"
+            app:layout_constraintTop_toBottomOf="@+id/resetPasswordButton" />
+
+        <Button
+            android:id="@+id/logOutButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="30dp"
+            android:text="Log Out"
+            android:textAlignment="textStart"
+            app:cornerRadius="12dp"
+            app:icon="@drawable/ic_log_out_icon_jpg"
+            app:iconSize="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/accountSettingsText"
+            app:layout_constraintTop_toBottomOf="@+id/accountSettingsText" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutContactUs"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayoutAccount">
+
+        <TextView
+            android:id="@+id/contactEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:checked="true"
-            android:scaleX="1.5"
-            android:scaleY="1.5"
-            android:textOff="OFF"
-            android:textOn="ON"
-            android:textSize="24sp"
+            android:layout_marginBottom="15dp"
+            android:clickable="true"
+            android:text="workoutplannerapp@gmail.com"
+            android:textColor="@color/orange_500"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/notificationsText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/contactUs" />
+
+        <TextView
+            android:id="@+id/contactUs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="For bug reports, inquiries or feedback, \n contact us on:"
+            android:textAlignment="center"
+            android:textColor="@color/light_gray"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/contactEmail"
+            app:layout_constraintStart_toStartOf="@+id/contactEmail"
             app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/feedbackSettingsText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="30dp"
-        android:text="Feedback"
-        android:textColor="@color/light_gray"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
-
-    <TextView
-        android:id="@+id/accountSettingsText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="30dp"
-        android:text="Account Settings"
-        android:textColor="@color/light_gray"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sendSuggestionButton" />
-
-    <Button
-        android:id="@+id/resetPasswordButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="40dp"
-        android:text="Reset Password"
-        android:textAlignment="textStart"
-        app:cornerRadius="12dp"
-        app:icon="@drawable/ic_reset_password_icon"
-        app:iconSize="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/accountSettingsText" />
-
-    <Button
-        android:id="@+id/sendSuggestionButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="40dp"
-        android:text="Send Suggestion"
-        android:textAlignment="textStart"
-        app:cornerRadius="12dp"
-        app:icon="@drawable/ic_suggestion"
-        app:iconSize="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/feedbackSettingsText" />
-
-    <Button
-        android:id="@+id/deleteAccountButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="40dp"
-        android:text="Delete Account"
-        android:textAlignment="textStart"
-        android:textColor="@color/cherry_tomato"
-        app:cornerRadius="12dp"
-        app:icon="@drawable/ic_delete"
-        app:iconSize="30dp"
-        app:iconTint="@color/cherry_tomato"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logOutButton" />
-
-    <Button
-        android:id="@+id/logOutButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="40dp"
-        android:text="Log Out"
-        android:textAlignment="textStart"
-        app:cornerRadius="12dp"
-        app:icon="@drawable/ic_log_out_icon_jpg"
-        app:iconSize="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/resetPasswordButton" />
-
-    <TextView
-        android:id="@+id/contactUs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="5dp"
-        android:text="For bug reports, inquiries or feedback, \n contact us on:"
-        android:textAlignment="center"
-        android:textColor="@color/light_gray"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deleteAccountButton" />
-
-    <TextView
-        android:id="@+id/contactEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:text="workoutplannerapp@gmail.com"
-        android:textColor="@color/orange_500"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contactUs" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

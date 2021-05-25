@@ -1,6 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.WorkoutPlanner" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <!-- <style name="Theme.WorkoutPlanner" parent="Theme.MaterialComponents.DayNight.DarkActionBar"> use this for dark mode support -->
+    <style name="Theme.WorkoutPlanner" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/dark_gray</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
