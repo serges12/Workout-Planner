@@ -1,6 +1,5 @@
 package com.example.workoutplanner.authentication
 
-import android.app.AlertDialog
 import android.content.ContentValues.TAG
 import android.content.DialogInterface
 import android.content.Intent
@@ -19,7 +18,6 @@ import androidx.navigation.Navigation
 import com.example.workoutplanner.MainActivity
 import com.example.workoutplanner.R
 import com.example.workoutplanner.databinding.FragmentLoginBinding
-import com.example.workoutplanner.models.WorkoutModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -43,19 +41,7 @@ class Login : Fragment() {
             startActivity(intent)
             activity?.finish()
         }
-
-        //if forgot password is clicked
-        binding.forgotPassword.setOnClickListener{
-
-//            auth.sendPasswordResetEmail(auth.currentUser.email)
-//                    .addOnSuccessListener {
-//                        Toast.makeText(context, "An reset link has been sent to your email address", Toast.LENGTH_SHORT).show()
-//                    }
-//                    .addOnFailureListener{
-//                        Toast.makeText(context, "Error: "+it.message, Toast.LENGTH_SHORT).show()
-//                    }
-        }
-
+        
         binding.goToRegister.setOnClickListener{view :View ->
             Navigation.findNavController(view).navigate(R.id.action_login_to_register)
         }
@@ -70,7 +56,6 @@ class Login : Fragment() {
             input.hint = "Enter Email"
             input.inputType = InputType.TYPE_CLASS_TEXT
             builder.setView(input)
-
             // Set up the buttons
             builder.setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
                 // Here you get get input text from the Edittext

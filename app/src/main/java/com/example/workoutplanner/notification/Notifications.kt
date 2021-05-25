@@ -33,7 +33,7 @@ class Notifications {
                 .setContentTitle("Workout Time!")
                 .setContentText(message)
                 //add here app icon
-                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setSmallIcon(R.drawable.notification_icon)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
 

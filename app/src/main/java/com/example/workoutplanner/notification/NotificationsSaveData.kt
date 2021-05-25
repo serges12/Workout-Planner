@@ -40,14 +40,14 @@ class NotificationsSaveData {
         calendar.set(Calendar.MINUTE, minute)
         calendar.set(Calendar.SECOND,0)
         val am = context!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
-        var intent = Intent(context, NotificationsBroadcastReceiver::class.java)
-        intent.putExtra("message", "Check out what you have for the day! Let's go!")
-        intent.action="com.tester.alarmmanager"
-        val pi = PendingIntent.getBroadcast(context,0,intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        
         //If notifications are on in settings
         if(on) {
-            am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, pi)
+            var intent = Intent(context, NotificationsBroadcastReceiver::class.java)
+            intent.putExtra("message", "Check out what you have for the day! Let's go!")
+            intent.action="com.tester.alarmmanager"
+            val pi = PendingIntent.getBroadcast(context,0,intent, PendingIntent.FLAG_UPDATE_CURRENT)
+                am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, pi)
         }
     }
 }

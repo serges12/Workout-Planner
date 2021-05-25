@@ -15,4 +15,5 @@
         <item name="android:windowBackground">@color/gray</item>
         <item name="buttonTint">@color/light_black</item>
     </style>
+
 </resources>

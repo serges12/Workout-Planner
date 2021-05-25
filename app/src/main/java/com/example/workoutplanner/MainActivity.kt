@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
         //Set navigation header view
         val headerView:View = binding.navView.inflateHeaderView(R.layout.drawer_menu_header)
-        headerView.emailText.text = "Logged in as " + FirebaseAuth.getInstance().currentUser.email.toString()
+        headerView.emailText.text = "Logged in as \n" + FirebaseAuth.getInstance().currentUser.email.toString()
 
         drawerLayout = binding.drawerLayout
         val navController = this.findNavController(R.id.myNavHostFragment)
@@ -41,9 +41,7 @@ class MainActivity : AppCompatActivity() {
             drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
-
     }
-
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = this.findNavController(R.id.myNavHostFragment)

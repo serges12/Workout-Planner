@@ -59,6 +59,7 @@ class Settings : Fragment() {
                 (activity as MainActivity).SetTime(hour, minute,true)
             }
             val timePickerDialog = TimePickerDialog(context,timeSetListener,saveData.getHour(),saveData.getMinute(),true)
+            timePickerDialog.window?.setBackgroundDrawableResource(R.color.input_gray)
             timePickerDialog.show()
         }
 
