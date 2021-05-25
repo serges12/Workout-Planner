@@ -73,7 +73,13 @@ class CustomWorkouts : Fragment() {
                             renameDialogBuilder.setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
                                 // Rename in database here
                                 var title = input.text.toString()
-
+                                it.reference.update("name", title)
+                                        .addOnSuccessListener {
+                                            Toast.makeText(context, "Title Changed", Toast.LENGTH_SHORT).show()
+                                        }
+                                        .addOnFailureListener {
+                                            Toast.makeText(context, "Error: " + it.message, Toast.LENGTH_SHORT).show()
+                                        }
                             })
                             renameDialogBuilder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, _ -> dialog.cancel() })
 
