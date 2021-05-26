@@ -88,7 +88,7 @@ class Home : Fragment() {
                                 }
                 }
                 else{
-                    binding.noCurrentWorkoutText.isVisible = true
+                    binding.NoWorkoutLayout.isVisible = true
                     binding.buttonGoToCurrentWorkout.setOnClickListener {
                         Toast.makeText(context, "Error: Select a current workout first!", Toast.LENGTH_SHORT).show()
                     }
