@@ -201,7 +201,7 @@ class CustomWorkouts : Fragment() {
             }
             else {
                 // Here you get get input text from the Edittext
-                var workoutID = input.text.toString()
+                var workoutID = input.text.toString().trim()
                 db.collection("workouts").document(workoutID).get()
                         .addOnSuccessListener {
                             if(it.data != null) {
