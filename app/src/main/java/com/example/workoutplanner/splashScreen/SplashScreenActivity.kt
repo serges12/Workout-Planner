@@ -17,7 +17,7 @@ class SplashScreenActivity : AppCompatActivity() {
             Handler().postDelayed({
                 val intent = Intent(this, LoginRegisterActivity::class.java)
                 startActivity(intent)
-//                overridePendingTransition(0, R.anim.slide_up)
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
             this?.finish()
             },2000
             )
