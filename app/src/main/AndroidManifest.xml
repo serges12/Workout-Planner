@@ -13,17 +13,22 @@
         android:roundIcon="@mipmap/app_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.WorkoutPlanner">
-        <activity android:name=".splashScreen.SplashScreenActivity">
+        <activity android:name=".splashScreen.SplashScreenActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GetExerciseActivity" />
-        <activity android:name=".authentication.LoginRegisterActivity">
-        </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".GetExerciseActivity"
+            android:screenOrientation="portrait" />
+
+        <activity android:name=".authentication.LoginRegisterActivity"
+            android:screenOrientation="portrait" />
+
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait" />
 
         <receiver android:name=".notification.NotificationsBroadcastReceiver">
             <intent-filter>
