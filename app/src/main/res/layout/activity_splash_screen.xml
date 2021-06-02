@@ -17,21 +17,37 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintBottom_toTopOf="@+id/dumbbellAnimation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="339dp"
-        android:layout_height="306dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/app_icon" />
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/todolistAnimation"
+        android:layout_width="320dp"
+        android:layout_height="320dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dumbbellAnimation"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/to_do_list_animation" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/dumbbellAnimation"
+        android:layout_width="320dp"
+        android:layout_height="154dp"
+        app:layout_constraintBottom_toTopOf="@+id/todolistAnimation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/dumbell_animation" />
 
     <TextView
         android:id="@+id/textView7"
@@ -45,7 +61,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.546" />
+        app:layout_constraintTop_toBottomOf="@+id/todolistAnimation" />
 </androidx.constraintlayout.widget.ConstraintLayout>

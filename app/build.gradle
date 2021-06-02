@@ -71,4 +71,7 @@ dependencies {
 
     //custom video api
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
+
+    //lottie animations
+    implementation "com.airbnb.android:lottie:3.7.0"
 }

@@ -19,7 +19,7 @@ class SplashScreenActivity : AppCompatActivity() {
                 startActivity(intent)
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
             this?.finish()
-            },2000
+            },3000
             )
     }
 }
